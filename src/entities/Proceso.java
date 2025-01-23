@@ -33,6 +33,7 @@ public class Proceso {
             throw new IllegalArgumentException("La cantidad de instrucciones debe ser mayor que 0.");
         }
 
+        //no necesaria con combobox
         if (tipo == null || (!tipo.equals("CPU bound") && !tipo.equals("I/O bound"))) {
             throw new IllegalArgumentException("El tipo debe ser 'CPU bound' o 'I/O bound'.");
         }
