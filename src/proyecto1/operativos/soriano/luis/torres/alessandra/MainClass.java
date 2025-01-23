@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package proyecto1.operativos.soriano.luis.torres.alessandra;
+import entities.Proceso;
 import ui.MainWindow;
 /**
  *
@@ -19,6 +20,13 @@ public class MainClass {
         
         MainWindow mainWindow = new MainWindow(); // Reemplaza "MainWindow" con el nombre de tu clase JFrame
         mainWindow.setVisible(true);
+        
+         Proceso proceso1 = new Proceso("Proceso1", 100, "CPU bound", null, null);
+        System.out.println(proceso1);
+
+        // Crear un proceso I/O bound
+        Proceso proceso2 = new Proceso("Proceso2", 200, "I/O bound", 5, 10);
+        System.out.println(proceso2);
     }
     
 }
