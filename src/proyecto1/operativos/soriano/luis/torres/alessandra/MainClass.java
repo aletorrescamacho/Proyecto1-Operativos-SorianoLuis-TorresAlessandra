@@ -4,7 +4,7 @@
  */
 package proyecto1.operativos.soriano.luis.torres.alessandra;
 import entities.Proceso;
-import ui.MainWindow;
+import ui.MainWindow; //
 /**
  *
  * @author Aless
