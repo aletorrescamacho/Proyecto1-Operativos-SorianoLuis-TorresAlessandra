@@ -65,7 +65,13 @@ public class MainWindow extends javax.swing.JFrame {
         CiclosParaSatisExcSpinner2 = new javax.swing.JLabel();
         CiclosParaGenSpinner1 = new javax.swing.JLabel();
         CiclosParaGenSpinner2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        PoliticadePlanificacionCB = new javax.swing.JComboBox<>();
+        TituloCambiarPoliticadePlanificacion = new javax.swing.JLabel();
+        GuardarCambiosPlanificacionButton = new javax.swing.JButton();
         ConfiguracionTab = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         EstadisticasTab = new javax.swing.JPanel();
         GraficosTab = new javax.swing.JPanel();
 
@@ -74,7 +80,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         jPanel.setBackground(new java.awt.Color(192, 204, 255));
 
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         TituloCrearProceso.setText("Crear Proceso");
+        jPanel1.add(TituloCrearProceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(114, 12, -1, -1));
 
         NombreTF.setToolTipText("Ingresa el nombre");
         NombreTF.addActionListener(new java.awt.event.ActionListener() {
@@ -82,14 +91,20 @@ public class MainWindow extends javax.swing.JFrame {
                 NombreTFActionPerformed(evt);
             }
         });
+        jPanel1.add(NombreTF, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 34, 150, -1));
 
         NombreLabel.setText("Nombre:");
+        jPanel1.add(NombreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 37, -1, -1));
+        jPanel1.add(CantInstruccionesSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 68, 150, -1));
 
         CantInstruccionesLabel.setText("Cant. Instrucciones:");
+        jPanel1.add(CantInstruccionesLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 71, -1, -1));
 
         TipoLabel.setText("Tipo:");
+        jPanel1.add(TipoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(93, 105, -1, -1));
 
         TipoCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "I/O bound", "CPU bound" }));
+        jPanel1.add(TipoCB, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 102, 150, -1));
 
         CrearProcesoButton.setText("Crear Proceso");
         CrearProcesoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,104 +112,63 @@ public class MainWindow extends javax.swing.JFrame {
                 CrearProcesoButtonActionPerformed(evt);
             }
         });
+        jPanel1.add(CrearProcesoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 204, -1, -1));
+        jPanel1.add(CiclosParaSatisExcSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 173, 150, -1));
+        jPanel1.add(CiclosParaGenSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 136, 150, -1));
 
         CiclosParaSatisExcSpinner1.setText("Ciclos para Satisfacer");
+        jPanel1.add(CiclosParaSatisExcSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, -1, -1));
 
         CiclosParaSatisExcSpinner2.setText("Excepción:");
+        jPanel1.add(CiclosParaSatisExcSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 20));
 
         CiclosParaGenSpinner1.setText("Ciclos para Generar");
+        jPanel1.add(CiclosParaGenSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         CiclosParaGenSpinner2.setText("Excepción:");
+        jPanel1.add(CiclosParaGenSpinner2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 20));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(TituloCrearProceso))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(NombreLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(NombreTF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(CantInstruccionesLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(CantInstruccionesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(TipoLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(TipoCB, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(CiclosParaGenSpinner2))
-                            .addComponent(CiclosParaGenSpinner1))
-                        .addGap(16, 16, 16)
-                        .addComponent(CiclosParaGenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CiclosParaSatisExcSpinner1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(CiclosParaSatisExcSpinner2)))
-                        .addGap(6, 6, 6)
-                        .addComponent(CiclosParaSatisExcSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(CrearProcesoButton)))
-                .addContainerGap(32, Short.MAX_VALUE))
+        PoliticadePlanificacionCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "Round Robin", "SPN", "SRT", "Falta 5to" }));
+        PoliticadePlanificacionCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PoliticadePlanificacionCBActionPerformed(evt);
+            }
+        });
+
+        TituloCambiarPoliticadePlanificacion.setText("Cambiar Política de Planificación");
+
+        GuardarCambiosPlanificacionButton.setText("Guardar Cambios");
+        GuardarCambiosPlanificacionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarCambiosPlanificacionButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(TituloCambiarPoliticadePlanificacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PoliticadePlanificacionCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(85, 85, 85)
+                        .addComponent(GuardarCambiosPlanificacionButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(TituloCrearProceso)
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(NombreLabel))
-                    .addComponent(NombreTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(CantInstruccionesLabel))
-                    .addComponent(CantInstruccionesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(TipoLabel))
-                    .addComponent(TipoCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(CiclosParaGenSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(CiclosParaGenSpinner1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(CiclosParaGenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CiclosParaSatisExcSpinner1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CiclosParaSatisExcSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CiclosParaSatisExcSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(9, 9, 9)
-                .addComponent(CrearProcesoButton)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(TituloCambiarPoliticadePlanificacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PoliticadePlanificacionCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(GuardarCambiosPlanificacionButton)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -204,28 +178,54 @@ public class MainWindow extends javax.swing.JFrame {
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(448, Short.MAX_VALUE))
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(548, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         TabContainer.addTab("Simulador", jPanel);
+
+        jPanel3.setBackground(new java.awt.Color(192, 204, 255));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Configuración");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addContainerGap(728, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
+                .addContainerGap(394, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout ConfiguracionTabLayout = new javax.swing.GroupLayout(ConfiguracionTab);
         ConfiguracionTab.setLayout(ConfiguracionTabLayout);
         ConfiguracionTabLayout.setHorizontalGroup(
             ConfiguracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         ConfiguracionTabLayout.setVerticalGroup(
             ConfiguracionTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         TabContainer.addTab("Configuración", ConfiguracionTab);
@@ -234,11 +234,11 @@ public class MainWindow extends javax.swing.JFrame {
         EstadisticasTab.setLayout(EstadisticasTabLayout);
         EstadisticasTabLayout.setHorizontalGroup(
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+            .addGap(0, 866, Short.MAX_VALUE)
         );
         EstadisticasTabLayout.setVerticalGroup(
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
+            .addGap(0, 436, Short.MAX_VALUE)
         );
 
         TabContainer.addTab("Estadísticas", EstadisticasTab);
@@ -247,11 +247,11 @@ public class MainWindow extends javax.swing.JFrame {
         GraficosTab.setLayout(GraficosTabLayout);
         GraficosTabLayout.setHorizontalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 785, Short.MAX_VALUE)
+            .addGap(0, 866, Short.MAX_VALUE)
         );
         GraficosTabLayout.setVerticalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
+            .addGap(0, 436, Short.MAX_VALUE)
         );
 
         TabContainer.addTab("Gráficos", GraficosTab);
@@ -327,6 +327,14 @@ public class MainWindow extends javax.swing.JFrame {
         
     }//GEN-LAST:event_CrearProcesoButtonActionPerformed
 
+    private void GuardarCambiosPlanificacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosPlanificacionButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GuardarCambiosPlanificacionButtonActionPerformed
+
+    private void PoliticadePlanificacionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoliticadePlanificacionCBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PoliticadePlanificacionCBActionPerformed
+
     private void resetForm() {
     NombreTF.setText(""); // Vaciar el campo de texto
     CantInstruccionesSpinner.setValue(0); // Restablecer el spinner a 0
@@ -384,13 +392,19 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton CrearProcesoButton;
     private javax.swing.JPanel EstadisticasTab;
     private javax.swing.JPanel GraficosTab;
+    private javax.swing.JButton GuardarCambiosPlanificacionButton;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField NombreTF;
+    private javax.swing.JComboBox<String> PoliticadePlanificacionCB;
     private javax.swing.JTabbedPane TabContainer;
     private javax.swing.JComboBox<String> TipoCB;
     private javax.swing.JLabel TipoLabel;
+    private javax.swing.JLabel TituloCambiarPoliticadePlanificacion;
     private javax.swing.JLabel TituloCrearProceso;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }
