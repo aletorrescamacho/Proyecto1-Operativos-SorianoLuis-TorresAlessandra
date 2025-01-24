@@ -45,7 +45,7 @@ public class MainClass {
             cpu3.setActivo(false); // CPU 3 desactivado si CPUsActivos es menor a 3
         }
 
-////
+/////////
         // Imprimir el estado inicial de las CPUs
         System.out.println(cpu1); // CPU{id=1, proceso=Sin proceso asignado, activo=true}
         System.out.println(cpu2); // CPU{id=2, proceso=Sin proceso asignado, activo=true}
