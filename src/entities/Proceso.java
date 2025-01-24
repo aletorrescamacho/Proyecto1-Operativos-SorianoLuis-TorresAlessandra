@@ -18,6 +18,7 @@ public class Proceso {
     private String estado; // default Listo
     private int PC; // Program Counter default 0
     private int MAR; // Memory Address Register default 0
+    private int cpuIdThread;
 
     // Contador de ID único para cada proceso
     private static int contadorID = 1;
@@ -59,6 +60,7 @@ public class Proceso {
         this.estado = "Listo"; // Estado inicial
         this.PC = 0; // Valor inicial por defecto
         this.MAR = 0; // Valor inicial por defecto
+        this.cpuIdThread = 0;
     }
 
     // Métodos Getters y Setters (opcional según lo necesites)
@@ -109,7 +111,14 @@ public class Proceso {
     public void setMAR(int MAR) {
         this.MAR = MAR;
     }
+    
+    public int getcpuIdThread() {
+        return cpuIdThread;
+    }
 
+    public void setcpuIdThread(int cpuIdThread) {
+        this.cpuIdThread = cpuIdThread;
+    }
     // Método toString() para imprimir el proceso
     @Override
     public String toString() {
