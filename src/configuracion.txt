@@ -1,0 +1,2 @@
+CPUsActivos=2
+DuracionCiclos=11

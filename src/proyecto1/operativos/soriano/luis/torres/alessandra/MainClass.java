@@ -10,7 +10,7 @@ import ui.MainWindow; //3
 /**
  *
  * @author Aless
- *////
+ */////////
 public class MainClass {
     public static CPU cpu1 = new CPU(); // CPU 1 siempre activo
     public static CPU cpu2 = new CPU(); // CPU 2 siempre activo
