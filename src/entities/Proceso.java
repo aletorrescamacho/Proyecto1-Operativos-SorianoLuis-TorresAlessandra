@@ -19,6 +19,7 @@ public class Proceso {
     private int PC; // Program Counter default 0
     private int MAR; // Memory Address Register default 0
     private int cpuIdThread;
+    private int cicloEnqueCola;
 
     // Contador de ID único para cada proceso
     private static int contadorID = 1;
@@ -60,9 +61,20 @@ public class Proceso {
         this.PC = 0; // Valor inicial por defecto
         this.MAR = 0; // Valor inicial por defecto
         this.cpuIdThread = 0;
+        this.cicloEnqueCola = -1;
     }
 
-    // Métodos Getters y Setters (opcional según lo necesites)
+    // Métodos Getters y Setters 
+    public int getCicloEnqueCola() {
+        return cicloEnqueCola;
+    }
+
+    public void setCicloEnqueCola(int cicloEnqueCola) {
+        this.cicloEnqueCola = cicloEnqueCola;
+    }
+
+    
+    
     public String getNombre() {
         return nombre;
     }
@@ -131,6 +143,7 @@ public class Proceso {
                 ", estado='" + estado + '\'' +
                 ", PC=" + PC +
                 ", MAR=" + MAR +
+                ", Ciclo=" + cicloEnqueCola +
                 '}';
     }
 }

@@ -4,6 +4,8 @@
  */
 package ui;
 
+import entities.CPU;
+
 /**
  *
  * @author Aless
@@ -13,10 +15,38 @@ public class CPUpane extends javax.swing.JPanel {
     /**
      * Creates new form CPUpane
      */
-    public CPUpane() {
+    private CPU cpu;
+    
+    public CPUpane(CPU cpu) {
+        this.cpu = cpu;
         initComponents();
+        actualizarInterfaz();
+        
+         this.setMinimumSize(new java.awt.Dimension(300, 200));
+    this.setPreferredSize(new java.awt.Dimension(300, 200));
+    this.setMaximumSize(new java.awt.Dimension(300, 200));
     }
 
+    
+    public void actualizarInterfaz() {
+        IDcpuLabel.setText(String.valueOf(cpu.getId()));
+        
+        
+        // Actualiza los valores en los labels con los datos del CPU y su proceso
+        NombreProcesoLabel.setText(cpu.getProceso() != null ? cpu.getProceso().getNombre() : "Sin Proceso");
+        IDprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getId()) : "N/A" );
+        PCprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getPC()) : "N/A");
+        MARprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getMAR()) : "N/A");
+        StatusprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getEstado()) : "N/A");
+        TipoprocesoLabel.setText(cpu.getProceso() != null ? cpu.getProceso().getTipo() : "N/A");
+    }
+
+    public void actualizarConProceso() {
+        // Método público para actualizar la interfaz si el proceso cambia
+        actualizarInterfaz();
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,130 +56,95 @@ public class CPUpane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        IDcpuLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        NombreProcesoLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        IDprocesoLabel = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        PCprocesoLabel = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        MARprocesoLabel = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        StatusprocesoLabel = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        TipoprocesoLabel = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("1");
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        IDcpuLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        IDcpuLabel.setText("1");
+        add(IDcpuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 20, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("CPU");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 75, 30));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel3.setText("Proceso en Ejecución:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 60));
 
-        jLabel4.setText("Nombre del Proceso");
+        NombreProcesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        NombreProcesoLabel.setText("Nombre del Proceso");
+        add(NombreProcesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, 60));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel5.setText("ID:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, -1, 60));
 
-        jLabel6.setText("ID proceso");
+        IDprocesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        IDprocesoLabel.setText("ID proceso");
+        add(IDprocesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 140, 60));
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel7.setText("PC:");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, 60));
 
-        jLabel8.setText("PC proceso");
+        PCprocesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        PCprocesoLabel.setText("PC proceso");
+        add(PCprocesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 140, 60));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel9.setText("MAR:");
+        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, -1, 60));
 
-        jLabel10.setText("MAR proceso");
+        MARprocesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        MARprocesoLabel.setText("MAR proceso");
+        add(MARprocesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 140, 60));
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel11.setText("Status:");
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, -1, 60));
 
-        jLabel12.setText("Status proceso");
+        StatusprocesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        StatusprocesoLabel.setText("Status proceso");
+        add(StatusprocesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 140, 60));
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel13.setText("Tipo:");
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, 60));
 
-        jLabel14.setText("Tipo proceso");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(116, 116, 116))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
+        TipoprocesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        TipoprocesoLabel.setText("Tipo proceso");
+        add(TipoprocesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 140, 60));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel IDcpuLabel;
+    private javax.swing.JLabel IDprocesoLabel;
+    private javax.swing.JLabel MARprocesoLabel;
+    private javax.swing.JLabel NombreProcesoLabel;
+    private javax.swing.JLabel PCprocesoLabel;
+    private javax.swing.JLabel StatusprocesoLabel;
+    private javax.swing.JLabel TipoprocesoLabel;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }

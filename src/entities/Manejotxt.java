@@ -26,4 +26,6 @@ public class Manejotxt {
         }
         return 2; // Valor por defecto si hay error
     }
+    
+    
 }

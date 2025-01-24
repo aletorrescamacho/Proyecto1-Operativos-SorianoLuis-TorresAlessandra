@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package entities;
+import proyecto1.operativos.soriano.luis.torres.alessandra.MainClass;
+import ui.MainWindow;
 
 /**
  *
@@ -40,7 +42,22 @@ public class CPU {
     }
 
     public void setProceso(Proceso proceso) {
-        this.proceso = proceso;
+        if (activo) { // Verificar si la CPU está activa
+            this.proceso = proceso;
+            if(id == 1){
+                MainClass.mainWindow.cpuPane1.actualizarConProceso();
+            }else if (id == 2){
+                MainClass.mainWindow.cpuPane2.actualizarConProceso();
+            } else {
+                MainClass.mainWindow.cpuPane2.actualizarConProceso();
+            }
+            
+            
+            
+            System.out.println("Proceso asignado correctamente a la CPU " + id + ": " + proceso.getNombre());
+    } else {
+        System.out.println("Error: No se puede asignar un proceso a la CPU " + id + " porque está desactivada.");
+    }
     }
 
     public boolean isActivo() {
