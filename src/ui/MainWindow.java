@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu1;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu2;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu3;
 
 /**
  *
@@ -607,10 +610,30 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_CambiarnumCPUsCBActionPerformed
 
     private void GuardarCambiosNumCPUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosNumCPUActionPerformed
-        String cpusActivos = (String) CambiarnumCPUsCB.getSelectedItem();
-    NumeroCPUSACTUALEs.setText(cpusActivos); // Actualiza el label
-    guardarConfiguracion("CPUsActivos", cpusActivos); // Guarda en el archivo
+         String cpusActivos = (String) CambiarnumCPUsCB.getSelectedItem();
+
+    // Actualizar el valor en el label
+    NumeroCPUSACTUALEs.setText(cpusActivos);
+
+    // Guardar el nuevo valor en el archivo de configuración
+    guardarConfiguracion("CPUsActivos", cpusActivos);
+
+    // Cambiar el estado del CPU 3 según la nueva configuración
+    if (cpusActivos.equals("2")) {
+        cpu3.setActivo(false); // Desactivar CPU 3
+    } else if (cpusActivos.equals("3")) {
+        cpu3.setActivo(true); // Activar CPU 3
+    }
+
+    // Mostrar mensaje de confirmación
     JOptionPane.showMessageDialog(this, "Número de CPUs guardado correctamente.");
+
+    // Imprimir el estado de las CPUs para verificar
+    System.out.println("CPU 1: " + cpu1);
+    System.out.println("CPU 2: " + cpu2);
+    System.out.println("CPU 3: " + cpu3);
+    
+    
     }//GEN-LAST:event_GuardarCambiosNumCPUActionPerformed
 
     private void GuardarCambiosDuracionCiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosDuracionCiclosActionPerformed
