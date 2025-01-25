@@ -49,7 +49,7 @@ public class CPU {
             }else if (id == 2){
                 MainClass.mainWindow.cpuPane2.actualizarConProceso();
             } else {
-                MainClass.mainWindow.cpuPane2.actualizarConProceso();
+                MainClass.mainWindow.cpuPane3.actualizarConProceso();
             }
             
             
