@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entities;
+package entities;//
 
 /**
  *
@@ -14,11 +14,14 @@ public class Proceso {
     private String tipo;
     private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound
     private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound
+    private int ciclosRestantesBloqueado; // Ciclos restantes para desbloqueo
+    private int ciclosEjecutadosDesdeUltimoBloqueo; // Ciclos ejecutados desde el último bloqueo
     private int id;
     private String estado; // default Listo
     private int PC; // Program Counter default 0
     private int MAR; // Memory Address Register default 0
     private int cpuIdThread;
+    private int cicloEnqueCola;
 
     // Contador de ID único para cada proceso
     private static int contadorID = 1;
@@ -54,15 +57,27 @@ public class Proceso {
             this.ciclosParaGenerarExcepcion = 0;
             this.ciclosParaSatisfacerExcepcion = 0;
         }
-
+        this.ciclosRestantesBloqueado = 0;
+        this.ciclosEjecutadosDesdeUltimoBloqueo = 0;
         this.id = contadorID++;
         this.estado = "Listo"; // Estado inicial
         this.PC = 0; // Valor inicial por defecto
         this.MAR = 0; // Valor inicial por defecto
         this.cpuIdThread = 0;
+        this.cicloEnqueCola = -1;
     }
 
-    // Métodos Getters y Setters (opcional según lo necesites)
+    // Métodos Getters y Setters 
+    public int getCicloEnqueCola() {
+        return cicloEnqueCola;
+    }
+
+    public void setCicloEnqueCola(int cicloEnqueCola) {
+        this.cicloEnqueCola = cicloEnqueCola;
+    }
+
+    
+    
     public String getNombre() {
         return nombre;
     }
@@ -81,6 +96,27 @@ public class Proceso {
     public String getTipo() {
         return tipo;
     }
+    
+    public int getCiclosRestantesBloqueado() {
+        return ciclosRestantesBloqueado;
+    }
+    
+    public void setCiclosRestantesBloqueado(int ciclosRestantesBloqueado) {
+        this.ciclosRestantesBloqueado = ciclosRestantesBloqueado;
+    }
+    
+    public int getCiclosEjecutadosDesdeUltimoBloqueo() {
+        return ciclosEjecutadosDesdeUltimoBloqueo;
+    }
+
+    public void setCiclosEjecutadosDesdeUltimoBloqueo(int ciclosEjecutadosDesdeUltimoBloqueo) {
+        this.ciclosEjecutadosDesdeUltimoBloqueo = ciclosEjecutadosDesdeUltimoBloqueo;
+    }
+    
+    public void incrementarCiclosEjecutados() {
+        this.ciclosEjecutadosDesdeUltimoBloqueo++;
+    }
+
 
     public int getCiclosParaGenerarExcepcion() {
         return ciclosParaGenerarExcepcion;
@@ -138,6 +174,7 @@ public class Proceso {
                 ", estado='" + estado + '\'' +
                 ", PC=" + PC +
                 ", MAR=" + MAR +
+                ", Ciclo=" + cicloEnqueCola +
                 '}';
     }
 }
