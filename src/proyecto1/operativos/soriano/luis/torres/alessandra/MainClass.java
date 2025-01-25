@@ -4,6 +4,7 @@
  */
 package proyecto1.operativos.soriano.luis.torres.alessandra;
 import entities.CPU;
+import entities.Cola;
 import entities.Manejotxt;
 import entities.Proceso;
 import ui.MainWindow; //3
@@ -12,6 +13,11 @@ import ui.MainWindow; //3
  * @author Aless
  */////////
 public class MainClass {
+    
+    public static Cola colaListos = new Cola();
+    public static Cola colaBloqueados = new Cola();
+    public static Cola colaTerminados = new Cola();
+    
     public static CPU cpu1 = new CPU(); // CPU 1 siempre activo
     public static CPU cpu2 = new CPU(); // CPU 2 siempre activo
     public static CPU cpu3 = new CPU(); // CPU 3 dependerá de CPUsActivos
@@ -27,12 +33,14 @@ public class MainClass {
         MainWindow mainWindow = new MainWindow(); // Reemplaza "MainWindow" con el nombre de tu clase JFrame
         mainWindow.setVisible(true);
         
-         Proceso proceso1 = new Proceso("Proceso1", 100, "CPU bound", null, null);
+        //Crear proeso CPU bound
+        Proceso proceso1 = new Proceso("Proceso1", 100, "CPU bound", null, null);
         System.out.println(proceso1);
 
         // Crear un proceso I/O bound
         Proceso proceso2 = new Proceso("Proceso2", 200, "I/O bound", 5, 10);
         System.out.println(proceso2);
+       
         
         
         
@@ -50,6 +58,7 @@ public class MainClass {
         System.out.println(cpu1); // CPU{id=1, proceso=Sin proceso asignado, activo=true}
         System.out.println(cpu2); // CPU{id=2, proceso=Sin proceso asignado, activo=true}
         System.out.println(cpu3); // CPU{id=3, proceso=Sin proceso asignado, activo=true}
+        
     }
     
 }

@@ -97,5 +97,41 @@ public class Cola<T> {
         }
         System.out.println();
     }
+
+    /**
+     * Vacía la cola eliminando todos los elementos.
+     */
+    public void vaciar() {
+        frente = null;
+        finalCola = null;
+        tamano = 0;
+    }
+
+    /**
+     * Convierte la cola en un arreglo.
+     * @return Un arreglo con los elementos de la cola en orden.
+     */
+    @SuppressWarnings("unchecked")
+    public T[] toArray() {
+        T[] array = (T[]) new Object[tamano];
+        Nodo<T> actual = frente;
+        int index = 0;
+        while (actual != null) {
+            array[index++] = actual.getDato();
+            actual = actual.getSiguiente();
+        }
+        return array;
+    }
+
+    /**
+     * Reconstruye la cola desde un arreglo, sobrescribiendo el contenido actual.
+     * @param array Un arreglo con los elementos en el orden deseado.
+     */
+    public void reconstruirDesdeArray(T[] array) {
+        vaciar(); // Vaciar la cola actual
+        for (T elemento : array) {
+            enqueue(elemento); // Reinsertar los elementos en el orden del arreglo
+        }
+    }
 }
 

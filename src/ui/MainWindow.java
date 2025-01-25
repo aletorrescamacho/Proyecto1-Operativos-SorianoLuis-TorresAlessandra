@@ -14,6 +14,10 @@ import javax.swing.JOptionPane;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu1;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu2;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu3;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaListos;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaBloqueados;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaTerminados;
+
 
 /**
  *
@@ -576,6 +580,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         // Imprimir el objeto en la consola
         System.out.println(proceso);
+        
+        // mandar proceso a la cola de listos
+        colaListos.enqueue(proceso);
+        colaListos.imprimirCola();
 
         // Restablecer los valores de los campos
         resetForm();
@@ -606,7 +614,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_PoliticadePlanificacionCBActionPerformed
 
     private void CambiarnumCPUsCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarnumCPUsCBActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: AQUI NADA NO ES BOTON
     }//GEN-LAST:event_CambiarnumCPUsCBActionPerformed
 
     private void GuardarCambiosNumCPUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosNumCPUActionPerformed
@@ -643,6 +651,7 @@ public class MainWindow extends javax.swing.JFrame {
     JOptionPane.showMessageDialog(this, "Duración de ciclos guardada correctamente.");
     }//GEN-LAST:event_GuardarCambiosDuracionCiclosActionPerformed
 
+        // valores vuelven a ser 0 despues de crear un proceso
     private void resetForm() {
     NombreTF.setText(""); // Vaciar el campo de texto
     CantInstruccionesSpinner.setValue(0); // Restablecer el spinner a 0
