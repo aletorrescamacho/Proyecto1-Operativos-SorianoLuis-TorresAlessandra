@@ -4,6 +4,7 @@
  */
 package proyecto1.operativos.soriano.luis.torres.alessandra;
 import entities.CPU;
+import entities.Cola;
 import entities.Manejotxt;
 import entities.Proceso;
 import ui.MainWindow; //3
@@ -13,6 +14,11 @@ import ui.MainWindow; //3
  * @author Aless
  */////////
 public class MainClass {
+    
+    public static Cola colaListos = new Cola();
+    public static Cola colaBloqueados = new Cola();
+    public static Cola colaTerminados = new Cola();
+    
     public static CPU cpu1 = new CPU(); // CPU 1 siempre activo
     public static CPU cpu2 = new CPU(); // CPU 2 siempre activo
     public static CPU cpu3 = new CPU(); // CPU 3 dependerá de CPUsActivos

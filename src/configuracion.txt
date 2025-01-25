@@ -1,2 +1,2 @@
-CPUsActivos=2
-DuracionCiclos=1
+CPUsActivos=3
+DuracionCiclos=4

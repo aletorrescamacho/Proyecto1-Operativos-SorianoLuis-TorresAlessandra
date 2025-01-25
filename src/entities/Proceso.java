@@ -82,6 +82,13 @@ public class Proceso {
     public int getCantidadInstrucciones() {
         return cantidadInstrucciones;
     }
+    
+    public void setCantidadInstrucciones(int cantidadInstrucciones) {
+    if (cantidadInstrucciones <= 0) {
+        throw new IllegalArgumentException("La cantidad de instrucciones debe ser mayor que 0.");
+    }
+    this.cantidadInstrucciones = cantidadInstrucciones;
+}
 
     public String getTipo() {
         return tipo;
