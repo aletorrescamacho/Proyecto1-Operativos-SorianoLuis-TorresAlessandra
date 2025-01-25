@@ -7,6 +7,9 @@ import entities.CPU;
 import entities.Cola;
 import entities.Manejotxt;
 import entities.Proceso;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ui.ListaPane;
 import ui.MainWindow; //3
 
 /**
@@ -41,17 +44,26 @@ public class MainClass {
         
         
         
+        
 
         int cpusActivos = Manejotxt.leerCPUsActivos();
         if (cpusActivos == 3) {
             cpu3.setActivo(true); // CPU 3 activo si CPUsActivos es 3
+            mainWindow.setColorCPU3ACTIVO();
         } else {
             cpu3.setActivo(false); // CPU 3 desactivado si CPUsActivos es menor a 3
+            mainWindow.setColorCPU3DESACTIVADO();
         }
+        
+        
+       Cola<Proceso> colaProcesos = new Cola<>();
+        Cola<Proceso> colaProcesos2 = new Cola<>();
+    // Iniciar la actualización automática
+    mainWindow.iniciarActualizacionAutomatica(colaProcesos);
 
 /////////
         // Imprimir el estado inicial de las CPUs
-        System.out.println(cpu1); // CPU{id=1, proceso=Sin proceso asignado, activo=true}
+       /** System.out.println(cpu1); // CPU{id=1, proceso=Sin proceso asignado, activo=true}
         System.out.println(cpu2); // CPU{id=2, proceso=Sin proceso asignado, activo=true}
         System.out.println(cpu3); // CPU{id=3, proceso=Sin proceso asignado, activo=true}
         
@@ -94,9 +106,63 @@ public class MainClass {
         System.err.println("Error en la espera: " + e.getMessage());
     } **/
      
+    //PRUEBA COLA
+    // Crear la cola de procesos
+    
+    //Cola<Proceso> colaProcesosPrueba = new Cola<>();
+
+
+ /*
+    for (int i = 1; i <= 10; i++) {
+        Proceso proceso = new Proceso(
+            "Proceso" + i,         // Nombre del proceso
+            i * 10,                // Cantidad de instrucciones
+            (i % 2 == 0) ? "CPU bound" : "I/O bound", // Tipo alternando entre CPU bound y I/O bound
+            (i % 2 == 0) ? null : i + 2, // Ciclos para generar excepción (solo para I/O bound)
+            (i % 2 == 0) ? null : i + 3  // Ciclos para satisfacer excepción (solo para I/O bound)
+        );
+        
+        // Añadir el proceso a la cola
+        colaProcesosPrueba.enqueue(proceso);
+    }*/
+
+    // Imprimir la cola para verificar
+    System.out.println("Procesos en la cola:");
+    colaProcesos.imprimirCola();
+
      
-     
+    
+       
+        
+    
+    
+ 
+  
+  
+
+// Prueba: Agrega procesos para verificar
+new Thread(() -> {
+    try {
+        for (int i = 0; i < 10; i++) {
+            Proceso proceso = new Proceso("Proceso" + (i + 1), 100, "CPU bound", null, null);
+            colaProcesos.enqueue(proceso);
+            Thread.sleep(2000); // Agrega un nuevo proceso cada 2 segundos
+        }
+    } catch (InterruptedException e) {
+        e.printStackTrace();
     }
+}).start();
+
+
+    
+    
+
+
+
+    
+    }
+    
+    
   
     
     public static void iniciarRelojGlobal() {
@@ -120,5 +186,8 @@ public class MainClass {
     
  
 }
+    
+    
+
 
 }
