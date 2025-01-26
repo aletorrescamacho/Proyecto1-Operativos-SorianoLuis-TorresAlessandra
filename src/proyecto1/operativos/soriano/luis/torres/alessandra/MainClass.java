@@ -80,7 +80,7 @@ public class MainClass {
 
         // Esperar unos segundos para observar la ejecución
         try {
-            Thread.sleep(15000); // Simular tiempo de ejecución general
+            Thread.sleep(1500000); // Simular tiempo de ejecución general
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
