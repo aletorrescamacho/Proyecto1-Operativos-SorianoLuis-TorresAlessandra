@@ -29,7 +29,7 @@ public class CPUpane extends javax.swing.JPanel {
 
     
     public void actualizarInterfaz() {
-        IDcpuLabel.setText(String.valueOf(cpu.getId()));
+        IDcpuLabel.setText(String.valueOf(cpu.getsId()));
         
         
         // Actualiza los valores en los labels con los datos del CPU y su proceso

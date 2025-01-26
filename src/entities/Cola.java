@@ -65,6 +65,14 @@ public class Cola<T> {
         }
         return frente.getDato();
     }
+    
+    
+    public Nodo<T> peekNode() {
+        if (isEmpty()) {
+            throw new IllegalStateException("La cola está vacía.");
+        }
+        return frente;
+    }
 
     /**
      * Verifica si la cola está vacía.

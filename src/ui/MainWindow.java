@@ -4,13 +4,18 @@
  */
 package ui;
 
+import entities.Cola;
+import entities.Nodo;
 import entities.Proceso;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import proyecto1.operativos.soriano.luis.torres.alessandra.MainClass;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu1;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu2;
@@ -18,6 +23,7 @@ import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cpu3
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaListos;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaBloqueados;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaTerminados;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.mainWindow;
 
 
 /**
@@ -29,18 +35,23 @@ public class MainWindow extends javax.swing.JFrame {
     public CPUpane cpuPane2;
     public CPUpane cpuPane3;
     private int cicloDuracion;
+   
+            
     /**
      * 
      * Creates new form MainWindow
      */
     public MainWindow() {
         initComponents();
+        
+        
         cargarConfiguracion(); 
-        
-        
+        configurarSpinners();
+
 
         
 
+jScrollPane1.setPreferredSize(new java.awt.Dimension(200, 150));
 
 // Crear y añadir los paneles de CPU
  cpuPane1 = new CPUpane(cpu1);
@@ -131,6 +142,12 @@ public void setCicloDuracion(int duracion) {
         cpuContainer3 = new javax.swing.JPanel();
         NumciclorrelojLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListosContainer = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        BloqueadosContainer = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         ConfiguracionTab = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         TituloPpalConfiguracion = new javax.swing.JLabel();
@@ -174,6 +191,8 @@ public void setCicloDuracion(int duracion) {
 
         NombreLabel.setText("Nombre:");
         jPanel1.add(NombreLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 37, -1, -1));
+
+        CantInstruccionesSpinner.setValue(1);
         jPanel1.add(CantInstruccionesSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 68, 150, -1));
 
         CantInstruccionesLabel.setText("Cant. Instrucciones:");
@@ -192,7 +211,11 @@ public void setCicloDuracion(int duracion) {
             }
         });
         jPanel1.add(CrearProcesoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 204, -1, -1));
+
+        CiclosParaSatisExcSpinner.setValue(1);
         jPanel1.add(CiclosParaSatisExcSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 173, 150, -1));
+
+        CiclosParaGenSpinner.setValue(1);
         jPanel1.add(CiclosParaGenSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 136, 150, -1));
 
         CiclosParaSatisExcSpinner1.setText("Ciclos para Satisfacer");
@@ -299,6 +322,31 @@ public void setCicloDuracion(int duracion) {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText("Ciclo de reloj Global");
 
+        jScrollPane1.setToolTipText("");
+
+        ListosContainer.setLayout(new javax.swing.BoxLayout(ListosContainer, javax.swing.BoxLayout.LINE_AXIS));
+        jScrollPane1.setViewportView(ListosContainer);
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        javax.swing.GroupLayout BloqueadosContainerLayout = new javax.swing.GroupLayout(BloqueadosContainer);
+        BloqueadosContainer.setLayout(BloqueadosContainerLayout);
+        BloqueadosContainerLayout.setHorizontalGroup(
+            BloqueadosContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 657, Short.MAX_VALUE)
+        );
+        BloqueadosContainerLayout.setVerticalGroup(
+            BloqueadosContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 205, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(BloqueadosContainer);
+
+        jLabel2.setText("Cola de Bloqueados:");
+
+        jLabel5.setText("Cola de Listos:");
+
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
         jPanelLayout.setHorizontalGroup(
@@ -313,35 +361,50 @@ public void setCicloDuracion(int duracion) {
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(116, 116, 116)
                         .addComponent(NumciclorrelojLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 670, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelLayout.createSequentialGroup()
                     .addGap(38, 38, 38)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(905, Short.MAX_VALUE)))
+                    .addContainerGap(952, Short.MAX_VALUE)))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(89, 89, 89)
-                        .addComponent(NumciclorrelojLabel))
+                        .addComponent(NumciclorrelojLabel)
+                        .addContainerGap(798, Short.MAX_VALUE))
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(443, Short.MAX_VALUE))
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelLayout.createSequentialGroup()
                     .addGap(437, 437, 437)
                     .addComponent(jLabel4)
-                    .addContainerGap(531, Short.MAX_VALUE)))
+                    .addContainerGap(833, Short.MAX_VALUE)))
         );
 
         TabContainer.addTab("Simulador", jPanel);
@@ -447,6 +510,8 @@ public void setCicloDuracion(int duracion) {
             }
         });
 
+        DuracionCiclosSpinner.setValue(1);
+
         SegundostituloLabel.setText("Segundos");
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -539,7 +604,7 @@ public void setCicloDuracion(int duracion) {
                     .addComponent(TituloPpalConfiguracion)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(710, Short.MAX_VALUE))
+                .addContainerGap(757, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,7 +613,7 @@ public void setCicloDuracion(int duracion) {
                 .addComponent(TituloPpalConfiguracion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 616, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 918, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41))
         );
@@ -570,11 +635,11 @@ public void setCicloDuracion(int duracion) {
         EstadisticasTab.setLayout(EstadisticasTabLayout);
         EstadisticasTabLayout.setHorizontalGroup(
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1233, Short.MAX_VALUE)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
         EstadisticasTabLayout.setVerticalGroup(
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1302, Short.MAX_VALUE)
         );
 
         TabContainer.addTab("Estadísticas", EstadisticasTab);
@@ -583,11 +648,11 @@ public void setCicloDuracion(int duracion) {
         GraficosTab.setLayout(GraficosTabLayout);
         GraficosTabLayout.setHorizontalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1233, Short.MAX_VALUE)
+            .addGap(0, 1280, Short.MAX_VALUE)
         );
         GraficosTabLayout.setVerticalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 1302, Short.MAX_VALUE)
         );
 
         TabContainer.addTab("Gráficos", GraficosTab);
@@ -754,10 +819,25 @@ public void setCicloDuracion(int duracion) {
     // Cambiar el estado del CPU 3 según la nueva configuración
     if (cpusActivos.equals("2")) {
         cpu3.setActivo(false); // Desactivar CPU 3
+         cpuContainer3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo
+        cpuPane3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo del panel
+        for (java.awt.Component component : cpuPane3.getComponents()) {
+            if (component instanceof javax.swing.JLabel) {
+                ((javax.swing.JLabel) component).setForeground(new java.awt.Color(255, 102, 102)); // Texto blanco
+            }}
+        
     } else if (cpusActivos.equals("3")) {
         cpu3.setActivo(true); // Activar CPU 3
+        cpuContainer3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal
+        cpuPane3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal del panel
+        for (java.awt.Component component : cpuPane3.getComponents()) {
+            if (component instanceof javax.swing.JLabel) {
+                ((javax.swing.JLabel) component).setForeground(new java.awt.Color(0, 0, 0)); // Texto negro
+            }
+        }
     }
-
+    
+    cpuContainer3.repaint();
     // Mostrar mensaje de confirmación
     JOptionPane.showMessageDialog(this, "Número de CPUs guardado correctamente.");
 
@@ -796,6 +876,127 @@ public void setCicloDuracion(int duracion) {
         System.out.println("Error: Label no inicializado.");
     }
 }
+    
+    public void setColorCPU3ACTIVO() {
+    
+        cpuContainer3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal
+        cpuPane3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal del panel
+        for (java.awt.Component component : cpuPane3.getComponents()) {
+            if (component instanceof javax.swing.JLabel) {
+                ((javax.swing.JLabel) component).setForeground(new java.awt.Color(0, 0, 0)); // Texto negro
+            }
+        }        
+    }
+    
+    public void setColorCPU3DESACTIVADO() {
+    
+         cpuContainer3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo
+        cpuPane3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo del panel
+        for (java.awt.Component component : cpuPane3.getComponents()) {
+            if (component instanceof javax.swing.JLabel) {
+                ((javax.swing.JLabel) component).setForeground(new java.awt.Color(255, 102, 102)); // Texto blanco
+            }} 
+    }
+    
+ private void configurarSpinners() {
+    configurarSpinnersSoloFlechas(); // Desactiva la entrada manual
+    agregarListenersDeValidacion(); // Añade validación para valores mayores a 0
+}
+
+private void configurarSpinnersSoloFlechas() {
+    desactivarInputManual(CantInstruccionesSpinner);
+    desactivarInputManual(CiclosParaGenSpinner);
+    desactivarInputManual(CiclosParaSatisExcSpinner);
+    desactivarInputManual(DuracionCiclosSpinner);
+}
+
+private void desactivarInputManual(javax.swing.JSpinner spinner) {
+    // Obtener el editor del JSpinner y desactivar la edición del campo de texto
+    javax.swing.JSpinner.DefaultEditor editor = (javax.swing.JSpinner.DefaultEditor) spinner.getEditor();
+    editor.getTextField().setEditable(false);
+}
+
+private void agregarListenersDeValidacion() {
+    agregarValidacionASpinner(CantInstruccionesSpinner);
+    agregarValidacionASpinner(CiclosParaGenSpinner);
+    agregarValidacionASpinner(CiclosParaSatisExcSpinner);
+    agregarValidacionASpinner(DuracionCiclosSpinner);
+}
+
+private void agregarValidacionASpinner(javax.swing.JSpinner spinner) {
+    spinner.addChangeListener(e -> {
+        int valor = (int) spinner.getValue();
+        if (valor < 0) {
+            // Restablece el valor a 1 si es 0 o negativo
+            spinner.setValue(1);
+            JOptionPane.showMessageDialog(null, 
+                "El valor debe ser mayor a 0.", 
+                "Valor no válido", 
+                JOptionPane.ERROR_MESSAGE);
+        }
+        else{}
+    });
+}
+
+public void actualizarListaPane(Cola<Proceso> colaProcesos) {
+    SwingUtilities.invokeLater(() -> {
+        // Limpiar el contenedor antes de agregar nuevos paneles
+        ListosContainer.removeAll();
+
+        // Recorrer la cola y crear un ListaPane para cada proceso
+        Nodo<Proceso> nodoActual = colaProcesos.peekNode(); // Accede al nodo inicial
+        while (nodoActual != null) {
+            Proceso proceso = nodoActual.getDato();
+            ListaPane panelProceso = new ListaPane(proceso);
+            ListosContainer.add(panelProceso); // Agregar el panel al contenedor
+            nodoActual = nodoActual.getSiguiente(); // Avanzar al siguiente nodo
+        }
+
+        // Refrescar el contenedor para que los cambios sean visibles
+        ListosContainer.revalidate();
+        ListosContainer.repaint();
+    });
+}
+
+public void actualizarListaPane2(Cola<Proceso> colaProcesos) {
+    SwingUtilities.invokeLater(() -> {
+        // Limpiar el contenedor antes de agregar nuevos paneles
+        ListosContainer.removeAll();
+
+        // Recorrer la cola y crear un ListaPane para cada proceso
+        Nodo<Proceso> nodoActual = colaProcesos.peekNode(); // Accede al nodo inicial
+        while (nodoActual != null) {
+            Proceso proceso = nodoActual.getDato();
+            ListaPane panelProceso = new ListaPane(proceso);
+            BloqueadosContainer.add(panelProceso); // Agregar el panel al contenedor
+            nodoActual = nodoActual.getSiguiente(); // Avanzar al siguiente nodo
+        }
+
+        // Refrescar el contenedor para que los cambios sean visibles
+        ListosContainer.revalidate();
+        ListosContainer.repaint();
+    });
+}
+// COLA LISTOS
+public void iniciarActualizacionAutomatica(Cola<Proceso> colaProcesos) {
+    Thread hiloActualizacion = new Thread(() -> {
+        while (true) {
+            try {
+                Thread.sleep(500); // Actualizar cada 500 ms (ajustable)
+                mainWindow.actualizarListaPane(colaProcesos); // Actualiza la interfaz
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt(); // Manejar la interrupción
+                break;
+            }
+        }
+    });
+    hiloActualizacion.setDaemon(true); // Terminará automáticamente cuando la aplicación cierre
+    hiloActualizacion.start();
+}
+//COLA BLOQUEADOS
+
+
 
     /**
      * @param args the command line arguments
@@ -833,6 +1034,7 @@ public void setCicloDuracion(int duracion) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel BloqueadosContainer;
     private javax.swing.JLabel CambiarduracionCiclosLabel;
     private javax.swing.JComboBox<String> CambiarnumCPUsCB;
     private javax.swing.JLabel CambiarnumCPUsLabel;
@@ -852,6 +1054,7 @@ public void setCicloDuracion(int duracion) {
     private javax.swing.JButton GuardarCambiosDuracionCiclos;
     private javax.swing.JButton GuardarCambiosNumCPU;
     private javax.swing.JButton GuardarCambiosPlanificacionButton;
+    private javax.swing.JPanel ListosContainer;
     private javax.swing.JLabel NombreLabel;
     private javax.swing.JTextField NombreTF;
     private javax.swing.JLabel NumciclorrelojLabel;
@@ -869,8 +1072,10 @@ public void setCicloDuracion(int duracion) {
     private javax.swing.JPanel cpuContainer2;
     private javax.swing.JPanel cpuContainer3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel;
@@ -882,5 +1087,7 @@ public void setCicloDuracion(int duracion) {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

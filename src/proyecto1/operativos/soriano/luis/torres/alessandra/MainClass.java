@@ -7,6 +7,7 @@ import entities.CPU;
 import entities.Cola;
 import entities.Manejotxt;
 import entities.Proceso;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ui.ListaPane;
@@ -17,11 +18,10 @@ import ui.MainWindow; //3
  * @author Aless
  */////////
 public class MainClass {
-    
-    public static Cola colaListos = new Cola();
+    public static Semaphore semaforo = new Semaphore(1); // Semáforo binario
+    public static Cola<Proceso> colaListos = new Cola();
     public static Cola colaBloqueados = new Cola();
     public static Cola colaTerminados = new Cola();
-    
     public static CPU cpu1 = new CPU(); // CPU 1 siempre activo
     public static CPU cpu2 = new CPU(); // CPU 2 siempre activo
     public static CPU cpu3 = new CPU(); // CPU 3 dependerá de CPUsActivos
@@ -43,7 +43,10 @@ public class MainClass {
         
         
         
-        
+        for (int i = 1; i <= 10; i++) {
+            colaListos.enqueue(new Proceso("hola"+i, i, "CPU bound",
+                   0, 0));
+        }
         
 
         int cpusActivos = Manejotxt.leerCPUsActivos();
@@ -56,11 +59,29 @@ public class MainClass {
         }
         
         
-       Cola<Proceso> colaProcesos = new Cola<>();
-        Cola<Proceso> colaProcesos2 = new Cola<>();
+       
     // Iniciar la actualización automática
-    mainWindow.iniciarActualizacionAutomatica(colaProcesos);
+    mainWindow.iniciarActualizacionAutomatica(colaListos);
 
+        // Iniciar las CPUs
+        cpu1.start();
+        cpu2.start();
+        cpu3.start();
+
+        // Esperar unos segundos para observar la ejecución
+        try {
+            Thread.sleep(15000); // Simular tiempo de ejecución general
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Detener las CPUs
+        cpu1.detener();
+        cpu2.detener();
+        cpu3.detener();
+
+        System.out.println("Ejecución finalizada.");
+  
 /////////
         // Imprimir el estado inicial de las CPUs
        /** System.out.println(cpu1); // CPU{id=1, proceso=Sin proceso asignado, activo=true}
@@ -127,8 +148,8 @@ public class MainClass {
     }*/
 
     // Imprimir la cola para verificar
-    System.out.println("Procesos en la cola:");
-    colaProcesos.imprimirCola();
+
+
 
      
     
@@ -141,18 +162,6 @@ public class MainClass {
   
 
 // Prueba: Agrega procesos para verificar
-new Thread(() -> {
-    try {
-        for (int i = 0; i < 10; i++) {
-            Proceso proceso = new Proceso("Proceso" + (i + 1), 100, "CPU bound", null, null);
-            colaProcesos.enqueue(proceso);
-            Thread.sleep(2000); // Agrega un nuevo proceso cada 2 segundos
-        }
-    } catch (InterruptedException e) {
-        e.printStackTrace();
-    }
-}).start();
-
 
     
     
