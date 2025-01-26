@@ -38,10 +38,9 @@ public class MainClass {
         
         iniciarRelojGlobal(); 
         
+        manejarColaBloqueados();
         
         
-        
-
         int cpusActivos = Manejotxt.leerCPUsActivos();
         if (cpusActivos == 3) {
             cpu3.setActivo(true); // CPU 3 activo si CPUsActivos es 3
@@ -119,6 +118,47 @@ public class MainClass {
     }).start();
     
  
+}
+    //HILO PARA MANEJAR LA COLA DE BLOQUEADOS
+    //DECREMENTA EN UNO LA CANTIDAD DE CICLOS RESTANTES BLOQUEADO PARA LOS PROCESOS EN LA COLA DE BLOQUEADOS
+    //UNA VEZ ciclosRestantesBloqueado llega a 0 se vuelve a encolar en la cola de Listos.
+    public static void manejarColaBloqueados() {
+    new Thread(() -> {
+        while (true) {
+            try {
+                // Pausa según la duración del ciclo configurada en la interfaz
+                Thread.sleep(mainWindow.getCicloDuracion() * 1000L);
+
+                // Procesar la cola de bloqueados
+                int tamano = colaBloqueados.size();
+                for (int i = 0; i < tamano; i++) {
+                    Proceso proceso = (Proceso) colaBloqueados.dequeue(); // Desencola el proceso
+
+                    // Decrementar el contador de ciclos restantes para desbloquearse
+                    proceso.setCiclosRestantesBloqueado(proceso.getCiclosRestantesBloqueado() - 1);
+
+                    // Si el proceso ha terminado su tiempo de bloqueo, lo mueve a la cola de listos
+                    if (proceso.getCiclosRestantesBloqueado() <= 0) {
+                        proceso.setEstado("Listo");
+                        proceso.setCiclosRestantesBloqueado(0); // Reseteamos el contador
+
+                        // Sincronizar el acceso a la cola de listos para evitar problemas de concurrencia
+                        synchronized (colaListos) {
+                            colaListos.enqueue(proceso); // Encola el proceso en la cola de listos
+                        }
+                    } else {
+                        colaBloqueados.enqueue(proceso); // Si no, lo vuelve a encolar en bloqueados
+                    }
+                }
+
+                // Actualizar la interfaz con la cola de bloqueados (sincronizado con la cola de bloqueados)
+                //mainWindow.actualizarColaBloqueados(colaBloqueados);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }).start();
 }
 
 }

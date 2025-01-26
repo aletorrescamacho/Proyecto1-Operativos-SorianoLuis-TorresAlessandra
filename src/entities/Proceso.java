@@ -12,10 +12,10 @@ public class Proceso {
     private String nombre;
     private int cantidadInstrucciones;
     private String tipo;
-    private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound
-    private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound
-    private int ciclosRestantesBloqueado; // Ciclos restantes para desbloqueo
-    private int ciclosEjecutadosDesdeUltimoBloqueo; // Ciclos ejecutados desde el último bloqueo
+    private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound //este siempre sera un valor estatico
+    private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound // este siemrpe sera un valor estatico
+    private int ciclosRestantesBloqueado; // Ciclos restantes para desbloqueo procesos I/O Bound //cuando 
+    private int ciclosEjecutadosDesdeUltimoBloqueo; // Ciclos ejecutados desde el último bloqueo o desde que se empieza a ejecutar el proceso // cuando este sea igual a ciclos para generar excepcion, se cambiara el estado del proceso y se llevara a la cola de listos.
     private int id;
     private String estado; // default Listo
     private int PC; // Program Counter default 0
@@ -33,7 +33,7 @@ public class Proceso {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
         }
 
-        if (cantidadInstrucciones < 0) {
+        if (cantidadInstrucciones <= 0) {
             throw new IllegalArgumentException("La cantidad de instrucciones debe ser mayor que 0.");
         }
 
