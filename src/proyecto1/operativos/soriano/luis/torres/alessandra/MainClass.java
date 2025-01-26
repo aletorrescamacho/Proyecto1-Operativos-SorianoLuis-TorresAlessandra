@@ -41,11 +41,19 @@ public class MainClass {
         
         iniciarRelojGlobal(); 
         
-        manejarColaBloqueados();
+        //manejarColaBloqueados();
         
         
         for (int i = 1; i <= 10; i++) {
             colaListos.enqueue(new Proceso("hola"+i, i, "CPU bound",
+                   0, 0));
+        }
+        for (int i = 11; i <= 21; i++) {
+            colaBloqueados.enqueue(new Proceso("hola"+i, i, "CPU bound",
+                   0, 0));
+        }
+        for (int i = 22; i <= 31; i++) {
+            colaTerminados.enqueue(new Proceso("hola"+i, i, "CPU bound",
                    0, 0));
         }
         
@@ -62,7 +70,8 @@ public class MainClass {
         
        
     // Iniciar la actualización automática
-    mainWindow.iniciarActualizacionAutomatica(colaListos);
+  //  mainWindow.iniciarActualizacionAutomatica(colaListos);
+    
 
         // Iniciar las CPUs
         cpu1.start();
@@ -196,6 +205,7 @@ public class MainClass {
     
  
 }
+    
     //HILO PARA MANEJAR LA COLA DE BLOQUEADOS
     //DECREMENTA EN UNO LA CANTIDAD DE CICLOS RESTANTES BLOQUEADO PARA LOS PROCESOS EN LA COLA DE BLOQUEADOS
     //UNA VEZ ciclosRestantesBloqueado llega a 0 se vuelve a encolar en la cola de Listos.
