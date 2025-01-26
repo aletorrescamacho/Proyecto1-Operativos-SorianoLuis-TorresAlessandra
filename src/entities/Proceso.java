@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entities;
+package entities;//
 
 /**
  *
@@ -12,8 +12,10 @@ public class Proceso {
     private String nombre;
     private int cantidadInstrucciones;
     private String tipo;
-    private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound
-    private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound
+    private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound //este siempre sera un valor estatico
+    private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound // este siemrpe sera un valor estatico
+    private int ciclosRestantesBloqueado; // Ciclos restantes para desbloqueo procesos I/O Bound //cuando 
+    private int ciclosEjecutadosDesdeUltimoBloqueo; // Ciclos ejecutados desde el último bloqueo o desde que se empieza a ejecutar el proceso // cuando este sea igual a ciclos para generar excepcion, se cambiara el estado del proceso y se llevara a la cola de listos.
     private int id;
     private String estado; // default Listo
     private int PC; // Program Counter default 0
@@ -31,7 +33,7 @@ public class Proceso {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
         }
 
-        if (cantidadInstrucciones < 0) {
+        if (cantidadInstrucciones <= 0) {
             throw new IllegalArgumentException("La cantidad de instrucciones debe ser mayor que 0.");
         }
 
@@ -55,7 +57,8 @@ public class Proceso {
             this.ciclosParaGenerarExcepcion = 0;
             this.ciclosParaSatisfacerExcepcion = 0;
         }
-
+        this.ciclosRestantesBloqueado = 0;
+        this.ciclosEjecutadosDesdeUltimoBloqueo = 0;
         this.id = contadorID++;
         this.estado = "Listo"; // Estado inicial
         this.PC = 0; // Valor inicial por defecto
@@ -93,6 +96,27 @@ public class Proceso {
     public String getTipo() {
         return tipo;
     }
+    
+    public int getCiclosRestantesBloqueado() {
+        return ciclosRestantesBloqueado;
+    }
+    
+    public void setCiclosRestantesBloqueado(int ciclosRestantesBloqueado) {
+        this.ciclosRestantesBloqueado = ciclosRestantesBloqueado;
+    }
+    
+    public int getCiclosEjecutadosDesdeUltimoBloqueo() {
+        return ciclosEjecutadosDesdeUltimoBloqueo;
+    }
+
+    public void setCiclosEjecutadosDesdeUltimoBloqueo(int ciclosEjecutadosDesdeUltimoBloqueo) {
+        this.ciclosEjecutadosDesdeUltimoBloqueo = ciclosEjecutadosDesdeUltimoBloqueo;
+    }
+    
+    public void incrementarCiclosEjecutados() {
+        this.ciclosEjecutadosDesdeUltimoBloqueo++;
+    }
+
 
     public int getCiclosParaGenerarExcepcion() {
         return ciclosParaGenerarExcepcion;

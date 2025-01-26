@@ -796,7 +796,7 @@ public void setCicloDuracion(int duracion) {
     }//GEN-LAST:event_CrearProcesoButtonActionPerformed
 
     private void GuardarCambiosPlanificacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosPlanificacionButtonActionPerformed
-        // TODO add your handling code here:
+        String algoritmoSeleccionado = (String) PoliticadePlanificacionCB.getSelectedItem();
     }//GEN-LAST:event_GuardarCambiosPlanificacionButtonActionPerformed
 
     private void PoliticadePlanificacionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoliticadePlanificacionCBActionPerformed
