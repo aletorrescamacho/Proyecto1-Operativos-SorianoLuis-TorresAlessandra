@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -333,7 +334,7 @@ public void setCicloDuracion(int duracion) {
 
         NumciclorrelojLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         NumciclorrelojLabel.setText("0");
-        jPanel.add(NumciclorrelojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 471, 28, -1));
+        jPanel.add(NumciclorrelojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 471, 130, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText("Ciclo de reloj Global");
@@ -716,6 +717,12 @@ public void setCicloDuracion(int duracion) {
     private void CrearProcesoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearProcesoButtonActionPerformed
       
     try {
+        
+        int pcMarInicial = leerPCMAR();
+        if (pcMarInicial == -1) {
+            throw new IllegalStateException("No se pudo leer el valor inicial de PC/MAR.");
+        }
+        
         // Obtener datos de los campos
         String nombre = NombreTF.getText();
         int cantidadInstrucciones = (int) CantInstruccionesSpinner.getValue();
@@ -745,6 +752,12 @@ public void setCicloDuracion(int duracion) {
         
         proceso.setCicloEnqueCola(MainClass.cicloGlobal);
 
+        // Asignar PC y MAR iniciales
+        proceso.setPC(pcMarInicial);
+        proceso.setMAR(pcMarInicial);
+
+        // Escribir el nuevo valor en PCMAR.txt
+        escribirPCMAR(pcMarInicial + cantidadInstrucciones + 2);
         
         // Imprimir el objeto en la consola
         System.out.println(proceso);
@@ -904,13 +917,10 @@ private void agregarListenersDeValidacion() {
 private void agregarValidacionASpinner(javax.swing.JSpinner spinner) {
     spinner.addChangeListener(e -> {
         int valor = (int) spinner.getValue();
-        if (valor < 0) {
+        if (valor <= 0) {
             // Restablece el valor a 1 si es 0 o negativo
             spinner.setValue(1);
-            JOptionPane.showMessageDialog(null, 
-                "El valor debe ser mayor a 0.", 
-                "Valor no válido", 
-                JOptionPane.ERROR_MESSAGE);
+            
         }
         else{}
     });
@@ -965,6 +975,36 @@ public void iniciarActualizacionAutomatica(Cola<Proceso> colaListos, javax.swing
     hiloActualizacion.setDaemon(true); // Terminará automáticamente cuando la aplicación cierre
     hiloActualizacion.start();
 }
+
+private static final String RUTA_PCMAR = "src/PCMAR.txt"; // Cambia esto si el archivo está en otro lugar
+
+private int leerPCMAR() {
+    try (BufferedReader reader = new BufferedReader(new FileReader(RUTA_PCMAR))) {
+        String linea = reader.readLine();
+        return Integer.parseInt(linea.trim());
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al leer el archivo PCMAR.txt.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        return -1; // Valor por defecto en caso de error
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Formato inválido en PCMAR.txt. Asegúrate de que contenga solo un número.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        return -1;
+    }
+}
+
+private void escribirPCMAR(int nuevoValor) {
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(RUTA_PCMAR, false))) {
+        writer.write(String.valueOf(nuevoValor));
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error al escribir en el archivo PCMAR.txt.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+
 
 
 //COLA BLOQUEADOS
