@@ -18,7 +18,7 @@ import ui.MainWindow;
     
 public class CPU extends Thread{
     private int id;
-    private Proceso proceso; // Puede ser null si no se pasa nada
+    private Proceso proceso; // 
     private boolean activo;  // Estado de la CPU (true = activo, false = inactivo)
     private static int contadorID = 1; // Contador estático para asignar IDs únicos
     private Semaphore semaforo = MainClass.semaforo ; // Semáforo para exclusión mutua
@@ -78,7 +78,7 @@ public class CPU extends Thread{
             } else {
                 MainClass.mainWindow.cpuPane3.liberarCPU();
             }
-        
+        proceso = null;
     }
 
     @Override
@@ -112,10 +112,9 @@ public void run() {
                 proceso = colaListos.dequeue(); // Saca el proceso de la cola
                 proceso.setEstado("Ejecutando"); // Cambiar estado a "Ejecutando"
                 this.setProceso(proceso);
-              
-                System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());
+                System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());////cuando se toma un proceso
             } else {
-                System.out.println("CPU " + id + ": La cola está vacía, esperando...");
+                System.out.println("CPU " + id + proceso + ": La cola está vacía, esperando...");
             }
 
             // Liberar el semáforo después de tomar el proceso
@@ -127,6 +126,25 @@ public void run() {
             // Si se obtuvo un proceso, simular su ejecución
             if (proceso != null ) {
                 
+                Proceso act = proceso;
+                Proceso soProceso = new Proceso("SO", 5, "CPU bound", 0, 0);
+                soProceso.setEstado("Ejecutando");
+                this.setProceso(soProceso); // Mostrar el SO en la interfaz
+                System.out.println("CPU " + id + " ejecutando el SO por 5 ciclos...");
+
+                for (int i = 0; i < 3; i++) {
+                    int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
+                    duracionCiclo = MainClass.mainWindow.getCicloDuracion();
+                    Thread.sleep(duracionCiclo * 1000L); // Simular un ciclo del SO
+                     soProceso.setPC(soProceso.getPC() + 1);
+                    soProceso.setMAR(soProceso.getMAR() + 1);
+                    this.setProceso(this.getProceso()); 
+                    System.out.println("CPU " + id + " SO: Ciclo " + (i + 1) + " de 5");
+                }
+
+                System.out.println("CPU " + id + " terminó la ejecución del SO.");
+                this.liberarProceso();
+                this.setProceso(act);
                 
                 int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
                 // Lógica específica según la política de planificación
@@ -241,18 +259,20 @@ public void run() {
                             proceso.setInstruccionesEjecutadas(proceso.getInstruccionesEjecutadas() + 1);
                             proceso.setPC(proceso.getPC() + 1);
                             proceso.setMAR(proceso.getMAR() + 1);
-                            this.setProceso(this.getProceso());
+                            this.setProceso(this.getProceso());//actualizas la interfaz con el pc, mar etc actualizados
+                            System.out.println("aja si esto esta debajo de la inconcordancia me maman el huevo");
                             
                             
                             /////ERROR SE DUPLICAAAA REVISAR
                             // Manejo de procesos I/O bound
                             if (proceso.getTipo().equalsIgnoreCase("I/O bound")) {
-                                proceso.setCiclosEjecutadosDesdeUltimoBloqueo(
-                                    proceso.getCiclosEjecutadosDesdeUltimoBloqueo() + 1
-                                );
-                                if (proceso.getCiclosEjecutadosDesdeUltimoBloqueo() >= proceso.getCiclosParaGenerarExcepcion()) {
+                                
+                                proceso.setCiclosEjecutadosDesdeUltimoBloqueo(proceso.getCiclosEjecutadosDesdeUltimoBloqueo() + 1);
+                                
+                                if (proceso.getCiclosEjecutadosDesdeUltimoBloqueo() >= proceso.getCiclosParaGenerarExcepcion() && proceso.getEstado().equals("Bloqueado") == false) {
+                                    System.out.println("hey se esta metiendo en la cola de bloqueados");
                                     proceso.setEstado("Bloqueado");
-                                    proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);
+                                    proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);//eyyyy
                                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosParaSatisfacerExcepcion());
                                     System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
                                     MainClass.colaBloqueados.enqueue(proceso);
@@ -267,9 +287,10 @@ public void run() {
                                 this.liberarProceso();
                                 break;
                             }
-                        }
+                        }//
                         break;
                 }
+                
             } else {
                 Thread.sleep(1000);
             }
