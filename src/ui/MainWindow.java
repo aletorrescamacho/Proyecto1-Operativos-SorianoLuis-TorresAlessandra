@@ -25,7 +25,7 @@ import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cola
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaBloqueados;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaTerminados;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.mainWindow;
-
+//
 
 /**
  *
