@@ -21,7 +21,8 @@ public class Proceso {
     private int PC; // Program Counter default 0
     private int MAR; // Memory Address Register default 0
     private int cpuIdThread;
-    private int cicloEnqueCola;
+    private int cicloEnqueCola;//HRRN
+    private int instruccionesEjecutadas; //SRT
 
     // Contador de ID único para cada proceso
     private static int contadorID = 1;
@@ -65,6 +66,7 @@ public class Proceso {
         this.MAR = 0; // Valor inicial por defecto
         this.cpuIdThread = 0;
         this.cicloEnqueCola = -1;
+        this.instruccionesEjecutadas = 0;
     }
 
     // Métodos Getters y Setters 
@@ -157,6 +159,19 @@ public class Proceso {
     public int getcpuIdThread() {
         return cpuIdThread;
     }
+    
+    public int getInstruccionesEjecutadas() {
+    return instruccionesEjecutadas;
+}
+
+    public void setInstruccionesEjecutadas(int instruccionesEjecutadas) {
+    this.instruccionesEjecutadas = instruccionesEjecutadas;
+}
+
+    // Calcula el tiempo restante para poilitica SRT
+    public int getTiempoRestante() {
+    return cantidadInstrucciones - instruccionesEjecutadas;
+}
 
     public void setcpuIdThread(int cpuIdThread) {
         this.cpuIdThread = cpuIdThread;
@@ -175,6 +190,7 @@ public class Proceso {
                 ", PC=" + PC +
                 ", MAR=" + MAR +
                 ", Ciclo=" + cicloEnqueCola +
+                ", InstruccionesEjecutadas=" + instruccionesEjecutadas +
                 '}';
     }
 }
