@@ -226,7 +226,9 @@ public void run() {
                             proceso.setPC(proceso.getPC() + 1);
                             proceso.setMAR(proceso.getMAR() + 1);
                             this.setProceso(this.getProceso());
-
+                            
+                            
+                            /////ERROR SE DUPLICAAAA REVISAR
                             // Manejo de procesos I/O bound
                             if (proceso.getTipo().equalsIgnoreCase("I/O bound")) {
                                 proceso.setCiclosEjecutadosDesdeUltimoBloqueo(

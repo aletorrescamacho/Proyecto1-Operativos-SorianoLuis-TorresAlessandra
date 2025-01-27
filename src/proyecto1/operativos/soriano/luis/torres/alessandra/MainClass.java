@@ -214,7 +214,11 @@ public class MainClass {
     public static void manejarColaBloqueados() {
     new Thread(() -> {
         while (true) {
-            synchronized (lockColaListos) {
+            try { 
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 // Procesar la cola de bloqueados
                 int tamano = colaBloqueados.size();
                 for (int i = 0; i < tamano; i++) {
@@ -229,8 +233,8 @@ public class MainClass {
                         colaBloqueados.enqueue(proceso); // Reencolar si no termina
                     }
                 }
-                lockColaListos.notify(); // Notificar al hilo de la cola de listos
-            }
+                
+            
         }
     }).start();
 }
