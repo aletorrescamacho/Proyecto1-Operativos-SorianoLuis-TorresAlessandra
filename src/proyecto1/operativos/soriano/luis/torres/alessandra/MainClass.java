@@ -215,7 +215,8 @@ public class MainClass {
     new Thread(() -> {
         while (true) {
             try { 
-                Thread.sleep(100);
+                int duracionCiclo = mainWindow.getCicloDuracion();
+                Thread.sleep(duracionCiclo * 1000L);
             } catch (InterruptedException ex) {
                 Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -223,14 +224,18 @@ public class MainClass {
                 //PROBLEMASSSSSSSSSSSSS
                 int tamano = colaBloqueados.size();
                 for (int i = 0; i < tamano; i++) {
-                    Proceso proceso = (Proceso) colaBloqueados.dequeue(); // Desencola el proceso ESTARA BIEN??
+                    Proceso proceso = (Proceso) colaBloqueados.dequeue(); // 
                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosRestantesBloqueado() - 1);
+                    System.out.println("ciclosrestantes"+proceso.getCiclosRestantesBloqueado());
                     
                     if (proceso.getCiclosRestantesBloqueado() <= 0) {
                         proceso.setEstado("Listo");
                         proceso.setCiclosRestantesBloqueado(0);
                         colaListos.enqueue(proceso); // Mover a la cola de listos
+                        System.out.println("encolacion en LISTOS papaappaapaa");
+                        System.out.println(proceso.getCiclosRestantesBloqueado());
                     } else {
+                        proceso.setEstado("Bloqueado");//solo nos aseguramos que su estado este bien
                         colaBloqueados.enqueue(proceso); // Reencolar si no termina
                     }
                 }
