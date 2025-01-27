@@ -29,6 +29,7 @@ public class MainClass {
     public static int cicloGlobal;
     public static final Object lockColaListos = new Object();
     public static String politicaActual = "FCFS";
+    public static volatile boolean actualizarColaListos = true;
     
     //para el hilo que maneja la cola de listos
     public static synchronized String getPoliticaActual() {

@@ -108,7 +108,7 @@ public void run() {
             // Intentar obtener un proceso de la cola
             if (!colaListos.isEmpty()) {
                  
-                
+               
                 proceso = colaListos.dequeue(); // Saca el proceso de la cola
                 proceso.setEstado("Ejecutando"); // Cambiar estado a "Ejecutando"
                 this.setProceso(proceso);
@@ -126,8 +126,10 @@ public void run() {
             // Si se obtuvo un proceso, simular su ejecución
             if (proceso != null ) {
                 
+               
+                
                 Proceso act = proceso;
-                Proceso soProceso = new Proceso("SO", 5, "CPU bound", 0, 0);
+                Proceso soProceso = new Proceso("SO", 3, "CPU bound", 0, 0);
                 soProceso.setEstado("Ejecutando");
                 this.setProceso(soProceso); // Mostrar el SO en la interfaz
                 System.out.println("CPU " + id + " ejecutando el SO por 5 ciclos...");
@@ -143,7 +145,12 @@ public void run() {
                 }
 
                 System.out.println("CPU " + id + " terminó la ejecución del SO.");
+                
+                
                 this.liberarProceso();
+                
+
+                
                 this.setProceso(act);
                 
                 int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
