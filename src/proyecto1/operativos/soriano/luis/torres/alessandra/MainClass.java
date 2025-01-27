@@ -87,9 +87,9 @@ public class MainClass {
         }
 
         // Detener las CPUs
-        cpu1.detener();
-        cpu2.detener();
-        cpu3.detener();
+        //cpu1.detener();
+        //cpu2.detener();
+        //cpu3.detener();
 
         System.out.println("Ejecución finalizada.");
   
