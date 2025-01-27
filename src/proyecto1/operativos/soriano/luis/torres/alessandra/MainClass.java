@@ -51,7 +51,7 @@ public class MainClass {
         mainWindow.setVisible(true);
         
         iniciarRelojGlobal(); 
-        
+        manejarColaListosSinLocks();
         
         
         
@@ -235,38 +235,36 @@ public class MainClass {
     }).start();
 }
     
-    //AQUI EL HILO QUE MANEJA LA COLA DE LISTOS, CUYA FUNCION PRINCIPAL ES ORDENAR LA COLA SEGUN EL ALGORITMO DE PLANIFICACION SELECCIONADO
-    public static void manejarColaListos() {
+public static void manejarColaListosSinLocks() {
     new Thread(() -> {
         while (true) {
             try {
-                synchronized (lockColaListos) {
-                    lockColaListos.wait(); // Esperar notificación de cambios en la cola
+                Thread.sleep(100); // Pausa de 1 segundo (o el tiempo que prefieras)
 
-                    // Obtener la política actual desde MainClass
-                    String politica = getPoliticaActual();
+                // Obtener la política actual desde MainClass
+                String politica = MainClass.getPoliticaActual();
 
-                    // Ordenar según la política
-                    switch (politica) {
-                        case "FCFS":
-                            //aqui nada, todo se maneja segun el orden de llegada a la cola
-                            break;
-                        case "SRT":
-                            ordenarSRT(colaListos);
-                            break;
-                        case "SPN":
-                            ordenarSPN(colaListos);
-                            break;
-                        case "HRRN":
-                            ordenarHRRN(colaListos, cicloGlobal);
-                            break;
-                        case "Round Robin":
-                            // nada
-                            break;
-                    }
-
-                    
+                // Ordenar según la política
+                switch (politica) {
+                    case "FCFS":
+                        // No se necesita ordenar
+                        break;
+                    case "SRT":
+                        ordenarSRT(MainClass.colaListos);
+                        break;
+                    case "SPN":
+                        ordenarSPN(MainClass.colaListos);
+                        break;
+                    case "HRRN":
+                        ordenarHRRN(MainClass.colaListos, MainClass.cicloGlobal);
+                        break;
+                    case "Round Robin":
+                        // No se necesita ordenar
+                        break;
                 }
+
+                // Actualizar la interfaz (si es necesario)
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

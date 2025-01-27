@@ -280,7 +280,7 @@
                         <StringItem index="1" value="Round Robin"/>
                         <StringItem index="2" value="SPN"/>
                         <StringItem index="3" value="SRT"/>
-                        <StringItem index="4" value="Falta 5to"/>
+                        <StringItem index="4" value="HRRN"/>
                       </StringArray>
                     </Property>
                   </Properties>

@@ -243,7 +243,7 @@ public void setCicloDuracion(int duracion) {
 
         jPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 29, 300, 237));
 
-        PoliticadePlanificacionCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "Round Robin", "SPN", "SRT", "Falta 5to" }));
+        PoliticadePlanificacionCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "Round Robin", "SPN", "SRT", "HRRN" }));
         PoliticadePlanificacionCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PoliticadePlanificacionCBActionPerformed(evt);
