@@ -78,6 +78,7 @@ public class CPU extends Thread{
             } else {
                 MainClass.mainWindow.cpuPane3.liberarCPU();
             }
+        
     }
 
     @Override
@@ -92,29 +93,42 @@ public class CPU extends Thread{
    @Override
 public void run() {
     int quantumRestante = 3; // Quantum de tiempo inicial para Round Robin
-
+    
+    
     while (activo) { // La CPU sigue ejecutando mientras esté activa
         try {
+            
+            
             // Adquirir el semáforo para acceder a la cola
             semaforo.acquire();
+            
+                
+             
 
             // Intentar obtener un proceso de la cola
             if (!colaListos.isEmpty()) {
+                 
+                
                 proceso = colaListos.dequeue(); // Saca el proceso de la cola
                 proceso.setEstado("Ejecutando"); // Cambiar estado a "Ejecutando"
                 this.setProceso(proceso);
+              
                 System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());
             } else {
                 System.out.println("CPU " + id + ": La cola está vacía, esperando...");
             }
 
             // Liberar el semáforo después de tomar el proceso
+            
             semaforo.release();
-
+           
+            
+            
             // Si se obtuvo un proceso, simular su ejecución
-            if (proceso != null) {
+            if (proceso != null ) {
+                
+                
                 int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
-
                 // Lógica específica según la política de planificación
                 switch (MainClass.politicaActual) {
                     case "Round Robin":
@@ -217,6 +231,8 @@ public void run() {
                         break;
 
                     default:
+                        
+                       
                         while (proceso.getCantidadInstrucciones() > 0) {
                             duracionCiclo = MainClass.mainWindow.getCicloDuracion();
                             Thread.sleep(duracionCiclo * 1000L);
