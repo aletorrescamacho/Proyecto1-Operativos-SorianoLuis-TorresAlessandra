@@ -34,6 +34,8 @@ public class Cola<T> {
         }
         finalCola = nuevoNodo; // Actualizamos el final de la cola
         tamano++;
+       
+    
     }
 
     /**

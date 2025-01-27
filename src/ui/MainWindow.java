@@ -27,6 +27,7 @@ import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.cola
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.mainWindow;
 
 
+
 /**
  *
  * @author Aless
@@ -751,7 +752,7 @@ public void setCicloDuracion(int duracion) {
         );
         
         proceso.setCicloEnqueCola(MainClass.cicloGlobal);
-
+        
         // Asignar PC y MAR iniciales
         proceso.setPC(pcMarInicial);
         proceso.setMAR(pcMarInicial);
@@ -772,6 +773,7 @@ public void setCicloDuracion(int duracion) {
         // Mostrar un mensaje de éxito
         JOptionPane.showMessageDialog(this, "Proceso creado con éxito:\n" + proceso, 
                                       "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
     } catch (Exception e) {
         // Mostrar errores en caso de que algo falle
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -788,7 +790,10 @@ public void setCicloDuracion(int duracion) {
 
     private void GuardarCambiosPlanificacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosPlanificacionButtonActionPerformed
         String algoritmoSeleccionado = (String) PoliticadePlanificacionCB.getSelectedItem();
-        MainClass.setPoliticaActual(algoritmoSeleccionado); // setea la variable politicaActual en el MainClass para ordenar la cola de listos segun esa politica.
+        MainClass.setPoliticaActual(algoritmoSeleccionado);
+        // setea la variable politicaActual en el MainClass para ordenar la cola de listos segun esa politica.
+       
+        
     }//GEN-LAST:event_GuardarCambiosPlanificacionButtonActionPerformed
 
     private void PoliticadePlanificacionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoliticadePlanificacionCBActionPerformed
