@@ -955,7 +955,7 @@ public void iniciarActualizacionAutomatica(Cola<Proceso> colaListos, javax.swing
     Thread hiloActualizacion = new Thread(() -> {
         while (true) {
             try {
-                Thread.sleep(500); // Actualizar cada 500 ms (ajustable)
+                Thread.sleep(100); // Actualizar cada 500 ms (ajustable)
 
                 // Actualizar el contenedor de listos
                 actualizarContenedor(colaListos, listosContainer);
