@@ -46,6 +46,15 @@ public class CPUpane extends javax.swing.JPanel {
         actualizarInterfaz();
     }
     
+    public void liberarCPU(){
+        NombreProcesoLabel.setText("Sin proceso");
+        IDprocesoLabel.setText("N/A");
+        PCprocesoLabel.setText("N/A");
+        MARprocesoLabel.setText("N/A");
+        StatusprocesoLabel.setText("N/A");
+        TipoprocesoLabel.setText("N/A");
+    
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

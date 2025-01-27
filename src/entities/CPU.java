@@ -71,7 +71,13 @@ public class CPU extends Thread{
 
     // Método para limpiar el proceso asignado
     public void liberarProceso() {
-        this.proceso = null; // Libera el proceso actual
+        if(id == 1){
+                MainClass.mainWindow.cpuPane1.liberarCPU();
+            }else if (id == 2){
+                MainClass.mainWindow.cpuPane2.liberarCPU();
+            } else {
+                MainClass.mainWindow.cpuPane3.liberarCPU();
+            }
     }
 
     @Override
@@ -84,52 +90,147 @@ public class CPU extends Thread{
     }
     
    @Override
-    public void run() {
-        while (activo) { // La CPU sigue ejecutando mientras esté activa
-            try {
-                // Adquirir el semáforo para acceder a la cola
-                semaforo.acquire();
+public void run() {
+    int quantumRestante = 3; // Quantum de tiempo inicial para Round Robin
 
-                // Intentar obtener un proceso de la cola
-                if (!colaListos.isEmpty()) {
-                    proceso = colaListos.dequeue(); // Saca el proceso de la cola
-                    System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());
-                } else {
-                    System.out.println("CPU " + id + ": La cola está vacía, esperando...");
-                }
+    while (activo) { // La CPU sigue ejecutando mientras esté activa
+        try {
+            // Adquirir el semáforo para acceder a la cola
+            semaforo.acquire();
 
-                // Liberar el semáforo después de tomar el proceso
-                semaforo.release();
-
-                // Si se obtuvo un proceso, simular su ejecución
-                if (proceso != null) {
-                    System.out.println("CPU " + id + " ejecutando proceso: " + proceso.getNombre());
-                    if(id == 1){
-                        MainClass.mainWindow.cpuPane1.actualizarConProceso();
-                    }else if (id == 2){
-                        MainClass.mainWindow.cpuPane2.actualizarConProceso();
-                    } else {
-                        MainClass.mainWindow.cpuPane3.actualizarConProceso();
-                    }
-                    Thread.sleep(5000); // Simular ejecución del proceso (2 segundos)
-                    System.out.println("CPU " + id + " terminó proceso: " + proceso.getNombre());
-                    proceso = null; // Liberar el proceso actual
-                } else {
-                    // Si no hay proceso, esperar un tiempo antes de intentar de nuevo
-                    Thread.sleep(1000);
-                }
-
-            } catch (InterruptedException e) {
-                System.out.println("CPU " + id + " fue interrumpida.");
-                Thread.currentThread().interrupt();
+            // Intentar obtener un proceso de la cola
+            if (!colaListos.isEmpty()) {
+                proceso = colaListos.dequeue(); // Saca el proceso de la cola
+                proceso.setEstado("Ejecutando"); // Cambiar estado a "Ejecutando"
+                this.setProceso(proceso);
+                System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());
+            } else {
+                System.out.println("CPU " + id + ": La cola está vacía, esperando...");
             }
+
+            // Liberar el semáforo después de tomar el proceso
+            semaforo.release();
+
+            // Si se obtuvo un proceso, simular su ejecución
+            if (proceso != null) {
+                int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
+
+                // Lógica específica según la política de planificación
+                switch (MainClass.politicaActual) {
+                    case "Round Robin":
+                        // Round Robin: Ejecutar con un quantum
+                        quantumRestante = 3; // Resetear el quantum inicial para cada nuevo proceso
+                        while (proceso.getCantidadInstrucciones() > 0) {
+                            // Pausar un ciclo de ejecución
+                            Thread.sleep(duracionCiclo * 1000L);
+
+                            // Decrementar atributos del proceso
+                            proceso.setCantidadInstrucciones(proceso.getCantidadInstrucciones() - 1);
+                            proceso.setInstruccionesEjecutadas(proceso.getInstruccionesEjecutadas() + 1);
+                            proceso.setPC(proceso.getPC() + 1);
+                            proceso.setMAR(proceso.getMAR() + 1);
+                            this.setProceso(this.getProceso()); //NUEVOOOOOO
+       
+                            quantumRestante--; // Decrementar el quantum restante
+
+                            // Si cantidadInstrucciones llega a 0 antes de consumir el quantum
+                            if (proceso.getCantidadInstrucciones() <= 0) {
+                                proceso.setEstado("Terminado");
+                                MainClass.colaTerminados.enqueue(proceso);
+                                proceso = null; // Liberar el proceso actual
+                                break;
+                            }
+
+                            // Si se consume el quantum y quedan instrucciones
+                            if (quantumRestante <= 0) {
+                                proceso.setEstado("Listo");
+                                MainClass.colaListos.enqueue(proceso); // Volver a encolar el proceso
+                                proceso = null; // Liberar el proceso actual
+                                break;
+                            }
+                        }
+                        break;
+
+                    case "SRT":
+                        // Shortest Remaining Time: Preemptivo
+                        while (proceso.getCantidadInstrucciones() > 0) {
+                            // Verificar si el proceso actual tiene menor tiempo restante que el primero en la cola
+                            semaforo.acquire();
+                            if (!colaListos.isEmpty() && 
+                                proceso.getTiempoRestante() > colaListos.peek().getTiempoRestante()) {
+                                // Intercambiar el proceso actual con el primero de la cola
+                                proceso.setEstado("Listo");
+                                MainClass.colaListos.enqueue(proceso);
+                                proceso = colaListos.dequeue();
+                                proceso.setEstado("Ejecutando");
+                                System.out.println("CPU " + id + " preempte proceso: " + proceso.getNombre());
+                            }
+                            semaforo.release();
+
+                            // Pausar un ciclo de ejecución
+                            Thread.sleep(duracionCiclo * 1000L);
+
+                            // Decrementar atributos del proceso
+                            proceso.setCantidadInstrucciones(proceso.getCantidadInstrucciones() - 1);
+                            proceso.setInstruccionesEjecutadas(proceso.getInstruccionesEjecutadas() + 1);
+                            proceso.setPC(proceso.getPC() + 1);
+                            proceso.setMAR(proceso.getMAR() + 1);
+                            this.setProceso(this.getProceso()); //NUEVOOOOOO
+                            // Si el proceso termina
+                            if (proceso.getCantidadInstrucciones() <= 0) {
+                                proceso.setEstado("Terminado");
+                                MainClass.colaTerminados.enqueue(proceso);
+                                
+                                proceso = null;
+                                break;
+                            }
+                        }
+                        break;
+
+                    default:
+                        // Otras políticas (FCFS, SPN, HRRN)
+                        while (proceso.getCantidadInstrucciones() > 0) {
+                            // Pausar según la duración del ciclo
+                            duracionCiclo = MainClass.mainWindow.getCicloDuracion(); //NUEVOOOOOOOOOOOOOOO
+                            Thread.sleep(duracionCiclo * 1000L);
+
+                            // Decrementar atributos del proceso
+                            proceso.setCantidadInstrucciones(proceso.getCantidadInstrucciones()-1); // aqui hay un problema cuando las instrucciones son 1
+                            proceso.setInstruccionesEjecutadas(proceso.getInstruccionesEjecutadas() + 1);
+                            proceso.setPC(proceso.getPC() + 1);
+                            proceso.setMAR(proceso.getMAR() + 1);
+                            this.setProceso(this.getProceso()); //NUEVOOOOOO
+                            
+                            
+                            // Si el proceso termina
+                            if (proceso.getCantidadInstrucciones() <= 0) {
+                                proceso.setEstado("Terminado");
+                                MainClass.colaTerminados.enqueue(proceso);
+                                this.liberarProceso();
+                                
+                                
+                                
+                                break;
+                            }
+                        }
+                        break;
+                }
+            } else {
+                // Si no hay proceso, esperar un tiempo antes de intentar de nuevo
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("CPU " + id + " fue interrumpida.");
+            Thread.currentThread().interrupt();
         }
-        
-        
     }
-    public void detener() {
-        activo = false;
-    }
+}
+
+public void detener() {
+    activo = false;
+}
 
 }
+
+
 

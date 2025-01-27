@@ -68,11 +68,8 @@ public class Cola<T> {
     
     
     public Nodo<T> peekNode() {
-        if (isEmpty()) {
-            throw new IllegalStateException("La cola está vacía.");
-        }
-        return frente;
-    }
+    return isEmpty() ? null : frente;
+}
 
     /**
      * Verifica si la cola está vacía.

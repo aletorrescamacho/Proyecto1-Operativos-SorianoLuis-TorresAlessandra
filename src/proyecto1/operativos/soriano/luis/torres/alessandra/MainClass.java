@@ -27,7 +27,18 @@ public class MainClass {
     public static CPU cpu3 = new CPU(); // CPU 3 dependerá de CPUsActivos
     public static MainWindow mainWindow = new MainWindow();
     public static int cicloGlobal;
-        
+    public static final Object lockColaListos = new Object();
+    public static String politicaActual = "FCFS";
+    
+    //para el hilo que maneja la cola de listos
+    public static synchronized String getPoliticaActual() {
+        return politicaActual;
+    }
+    
+    //para setearla a la nueva politica que escoja el usuario
+    public static synchronized void setPoliticaActual(String nuevaPolitica) {
+        politicaActual = nuevaPolitica;
+    }  
 
     /**
      * @param args the command line arguments
@@ -41,21 +52,9 @@ public class MainClass {
         
         iniciarRelojGlobal(); 
         
-        //manejarColaBloqueados();
         
         
-        for (int i = 1; i <= 10; i++) {
-            colaListos.enqueue(new Proceso("hola"+i, i, "CPU bound",
-                   0, 0));
-        }
-        for (int i = 11; i <= 21; i++) {
-            colaBloqueados.enqueue(new Proceso("hola"+i, i, "CPU bound",
-                   0, 0));
-        }
-        for (int i = 22; i <= 31; i++) {
-            colaTerminados.enqueue(new Proceso("hola"+i, i, "CPU bound",
-                   0, 0));
-        }
+        
         
 
         int cpusActivos = Manejotxt.leerCPUsActivos();
@@ -77,6 +76,8 @@ public class MainClass {
         cpu1.start();
         cpu2.start();
         cpu3.start();
+        
+        manejarColaBloqueados();
 
         // Esperar unos segundos para observar la ejecución
         try {
@@ -209,43 +210,163 @@ public class MainClass {
     //HILO PARA MANEJAR LA COLA DE BLOQUEADOS
     //DECREMENTA EN UNO LA CANTIDAD DE CICLOS RESTANTES BLOQUEADO PARA LOS PROCESOS EN LA COLA DE BLOQUEADOS
     //UNA VEZ ciclosRestantesBloqueado llega a 0 se vuelve a encolar en la cola de Listos.
+
     public static void manejarColaBloqueados() {
     new Thread(() -> {
         while (true) {
-            try {
-                // Pausa según la duración del ciclo configurada en la interfaz
-                Thread.sleep(mainWindow.getCicloDuracion() * 1000L);
-
+            synchronized (lockColaListos) {
                 // Procesar la cola de bloqueados
                 int tamano = colaBloqueados.size();
                 for (int i = 0; i < tamano; i++) {
                     Proceso proceso = (Proceso) colaBloqueados.dequeue(); // Desencola el proceso
-
-                    // Decrementar el contador de ciclos restantes para desbloquearse
                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosRestantesBloqueado() - 1);
-
-                    // Si el proceso ha terminado su tiempo de bloqueo, lo mueve a la cola de listos
+                    
                     if (proceso.getCiclosRestantesBloqueado() <= 0) {
                         proceso.setEstado("Listo");
-                        proceso.setCiclosRestantesBloqueado(0); // Reseteamos el contador
-
-                        // Sincronizar el acceso a la cola de listos para evitar problemas de concurrencia
-                        synchronized (colaListos) {
-                            colaListos.enqueue(proceso); // Encola el proceso en la cola de listos
-                        }
+                        proceso.setCiclosRestantesBloqueado(0);
+                        colaListos.enqueue(proceso); // Mover a la cola de listos
                     } else {
-                        colaBloqueados.enqueue(proceso); // Si no, lo vuelve a encolar en bloqueados
+                        colaBloqueados.enqueue(proceso); // Reencolar si no termina
                     }
                 }
+                lockColaListos.notify(); // Notificar al hilo de la cola de listos
+            }
+        }
+    }).start();
+}
+    
+    //AQUI EL HILO QUE MANEJA LA COLA DE LISTOS, CUYA FUNCION PRINCIPAL ES ORDENAR LA COLA SEGUN EL ALGORITMO DE PLANIFICACION SELECCIONADO
+    public static void manejarColaListos() {
+    new Thread(() -> {
+        while (true) {
+            try {
+                synchronized (lockColaListos) {
+                    lockColaListos.wait(); // Esperar notificación de cambios en la cola
 
-                // Actualizar la interfaz con la cola de bloqueados (sincronizado con la cola de bloqueados)
-                //mainWindow.actualizarColaBloqueados(colaBloqueados);
+                    // Obtener la política actual desde MainClass
+                    String politica = getPoliticaActual();
 
+                    // Ordenar según la política
+                    switch (politica) {
+                        case "FCFS":
+                            //aqui nada, todo se maneja segun el orden de llegada a la cola
+                            break;
+                        case "SRT":
+                            ordenarSRT(colaListos);
+                            break;
+                        case "SPN":
+                            ordenarSPN(colaListos);
+                            break;
+                        case "HRRN":
+                            ordenarHRRN(colaListos, cicloGlobal);
+                            break;
+                        case "Round Robin":
+                            // nada
+                            break;
+                    }
+
+                    
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }).start();
 }
+    
+   //A Partir de aqui los metodos para ordenar la cola de listos segun la politica de planificacion:
+    
+    //SRT
+    public static void ordenarSRT(Cola<Proceso> colaListos) {
+    int size = colaListos.size();
+    //array del tamano de la cola
+    Proceso[] procesos = new Proceso[size];
+
+    // Desencolar todos los procesos
+    for (int i = 0; i < size; i++) {
+        procesos[i] = colaListos.dequeue();
+    }
+
+    // Ordenar por menor tiempo restante
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (procesos[j].getTiempoRestante() > procesos[j + 1].getTiempoRestante()) {
+                Proceso temp = procesos[j];
+                procesos[j] = procesos[j + 1];
+                procesos[j + 1] = temp;
+            }
+        }
+    }
+
+    // Reencolar procesos ordenados
+    for (Proceso p : procesos) {
+        colaListos.enqueue(p);
+    }
+}
+    
+    //HRRN
+    public static void ordenarHRRN(Cola<Proceso> colaListos, int cicloGlobal) {
+    // Convertir la cola en un array para facilitar el ordenamiento
+    int size = colaListos.size();
+    Proceso[] procesos = new Proceso[size];
+
+    for (int i = 0; i < size; i++) {
+        procesos[i] = colaListos.dequeue();
+    }
+
+    // Ordenar por mayor tasa de respuesta
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            // Calcular tasa de respuesta dinámicamente para los procesos
+            int tiempoEsperaJ = cicloGlobal - procesos[j].getCicloEnqueCola();
+            double tasaRespuestaJ = (tiempoEsperaJ + procesos[j].getCantidadInstrucciones()) / (double) procesos[j].getCantidadInstrucciones();
+
+            int tiempoEsperaJ1 = cicloGlobal - procesos[j + 1].getCicloEnqueCola();
+            double tasaRespuestaJ1 = (tiempoEsperaJ1 + procesos[j + 1].getCantidadInstrucciones()) / (double) procesos[j + 1].getCantidadInstrucciones();
+
+            if (tasaRespuestaJ < tasaRespuestaJ1) {
+                // Intercambiar procesos
+                Proceso temp = procesos[j];
+                procesos[j] = procesos[j + 1];
+                procesos[j + 1] = temp;
+            }
+        }
+    }
+
+    // Volver a encolar los procesos en la cola de listos ordenados
+    for (Proceso p : procesos) {
+        colaListos.enqueue(p);
+    }
+}
+
+    //SPN
+    public static void ordenarSPN(Cola<Proceso> colaListos) {
+    // Convertir la cola en un array para facilitar el ordenamiento
+    int size = colaListos.size();
+    Proceso[] procesos = new Proceso[size];
+
+    for (int i = 0; i < size; i++) {
+        procesos[i] = colaListos.dequeue();
+    }
+
+    // Ordenar por menor tiempo de servicio
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (procesos[j].getCantidadInstrucciones() > procesos[j + 1].getCantidadInstrucciones()) {
+                // Intercambiar procesos
+                Proceso temp = procesos[j];
+                procesos[j] = procesos[j + 1];
+                procesos[j + 1] = temp;
+            }
+        }
+    }
+
+    // Volver a encolar los procesos en la cola de listos ordenados
+    for (Proceso p : procesos) {
+        colaListos.enqueue(p);
+    }
+}
+
 
 }
+

@@ -788,6 +788,7 @@ public void setCicloDuracion(int duracion) {
 
     private void GuardarCambiosPlanificacionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosPlanificacionButtonActionPerformed
         String algoritmoSeleccionado = (String) PoliticadePlanificacionCB.getSelectedItem();
+        MainClass.setPoliticaActual(algoritmoSeleccionado); // setea la variable politicaActual en el MainClass para ordenar la cola de listos segun esa politica.
     }//GEN-LAST:event_GuardarCambiosPlanificacionButtonActionPerformed
 
     private void PoliticadePlanificacionCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PoliticadePlanificacionCBActionPerformed
