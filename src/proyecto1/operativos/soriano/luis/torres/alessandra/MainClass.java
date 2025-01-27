@@ -220,9 +220,10 @@ public class MainClass {
                 Logger.getLogger(MainClass.class.getName()).log(Level.SEVERE, null, ex);
             }
                 // Procesar la cola de bloqueados
+                //PROBLEMASSSSSSSSSSSSS
                 int tamano = colaBloqueados.size();
                 for (int i = 0; i < tamano; i++) {
-                    Proceso proceso = (Proceso) colaBloqueados.dequeue(); // Desencola el proceso
+                    Proceso proceso = (Proceso) colaBloqueados.dequeue(); // Desencola el proceso ESTARA BIEN??
                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosRestantesBloqueado() - 1);
                     
                     if (proceso.getCiclosRestantesBloqueado() <= 0) {
