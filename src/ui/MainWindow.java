@@ -692,7 +692,7 @@ public void setCicloDuracion(int duracion) {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2775, Short.MAX_VALUE))
+                .addContainerGap(2814, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ConfiguracionTabLayout = new javax.swing.GroupLayout(ConfiguracionTab);
@@ -707,6 +707,10 @@ public void setCicloDuracion(int duracion) {
         );
 
         TabContainer.addTab("Configuración", ConfiguracionTab);
+
+        GraficosTab.setBackground(new java.awt.Color(221, 225, 245));
+
+        jTabbedPane1.setBackground(new java.awt.Color(221, 225, 245));
 
         javax.swing.GroupLayout CompTHLayout = new javax.swing.GroupLayout(CompTH);
         CompTH.setLayout(CompTHLayout);
@@ -759,16 +763,18 @@ public void setCicloDuracion(int duracion) {
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GraficosTabLayout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2555, Short.MAX_VALUE))
+                .addGap(0, 2594, Short.MAX_VALUE))
         );
 
         TabContainer.addTab("Gráficos", GraficosTab);
 
+        jPanel9.setBackground(new java.awt.Color(221, 225, 245));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel10.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel10.setBackground(new java.awt.Color(192, 204, 255));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 102));
         jLabel8.setText("Estadísticas Generales:");
 
         jLabel10.setText("Procesos Totales Terminados:");
@@ -834,7 +840,7 @@ public void setCicloDuracion(int duracion) {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel13)
@@ -858,11 +864,12 @@ public void setCicloDuracion(int duracion) {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1110, -1));
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 150));
 
-        jPanel11.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel11.setBackground(new java.awt.Color(221, 225, 245));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(0, 0, 102));
         jLabel15.setText("Estadisticas FCFS");
 
         jLabel16.setText("Tiempo ejecutando política:");
@@ -948,9 +955,10 @@ public void setCicloDuracion(int duracion) {
 
         jPanel9.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
-        jPanel12.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel12.setBackground(new java.awt.Color(221, 225, 245));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("Estadisticas Round Robin");
 
         jLabel21.setText("Tiempo ejecutando política:");
@@ -1034,11 +1042,12 @@ public void setCicloDuracion(int duracion) {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, -1, 201));
+        jPanel9.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, -1, 180));
 
-        jPanel13.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel13.setBackground(new java.awt.Color(221, 225, 245));
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(0, 0, 102));
         jLabel27.setText("Estadisticas SPN");
 
         jLabel28.setText("Tiempo ejecutando política:");
@@ -1123,9 +1132,10 @@ public void setCicloDuracion(int duracion) {
 
         jPanel9.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, -1, 200));
 
-        jPanel14.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel14.setBackground(new java.awt.Color(221, 225, 245));
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(0, 0, 102));
         jLabel33.setText("Estadisticas SRT");
 
         jLabel34.setText("Tiempo ejecutando política:");
@@ -1208,11 +1218,12 @@ public void setCicloDuracion(int duracion) {
                     .addComponent(THSRT)))
         );
 
-        jPanel9.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 380, 400, 190));
+        jPanel9.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 370, 400, 200));
 
-        jPanel15.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel15.setBackground(new java.awt.Color(221, 225, 245));
 
-        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel39.setForeground(new java.awt.Color(0, 0, 102));
         jLabel39.setText("Estadisticas HRRN");
 
         jLabel40.setText("Tiempo ejecutando política:");
@@ -1293,10 +1304,10 @@ public void setCicloDuracion(int duracion) {
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel44)
                     .addComponent(THHRRN))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        jPanel9.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 160, -1, -1));
+        jPanel9.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, -1, 180));
 
         jScrollPane4.setViewportView(jPanel9);
 
@@ -1304,11 +1315,17 @@ public void setCicloDuracion(int duracion) {
         EstadisticasTab.setLayout(EstadisticasTabLayout);
         EstadisticasTabLayout.setHorizontalGroup(
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1306, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EstadisticasTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1294, Short.MAX_VALUE)
+                .addContainerGap())
         );
         EstadisticasTabLayout.setVerticalGroup(
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 3147, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EstadisticasTabLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 3174, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         TabContainer.addTab("Estadísticas", EstadisticasTab);
