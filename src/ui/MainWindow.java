@@ -7,6 +7,7 @@ package ui;
 import entities.Cola;
 import entities.Nodo;
 import entities.Proceso;
+import java.awt.BorderLayout;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import proyecto1.operativos.soriano.luis.torres.alessandra.MainClass;
@@ -47,8 +49,10 @@ public class MainWindow extends javax.swing.JFrame {
     public CPUpane cpuPane2;
     public CPUpane cpuPane3;
     private int cicloDuracion;
-   
-            
+     
+
+   private GraficoTorta graficoTorta;
+   private GraficoBarrasTiempo graficoBarrasTiempo;
     /**
      * 
      * Creates new form MainWindow
@@ -60,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame {
         cargarConfiguracion(); 
         configurarSpinners();
         ActualizarEstadisticas();
-
+        
 ListosContainer.setLayout(new BoxLayout(ListosContainer, BoxLayout.X_AXIS));
     Blista.setLayout(new BoxLayout(Blista, BoxLayout.X_AXIS));
         Tlista.setLayout(new BoxLayout(Tlista, BoxLayout.X_AXIS));
@@ -68,7 +72,11 @@ ListosContainer.setLayout(new BoxLayout(ListosContainer, BoxLayout.X_AXIS));
     // Iniciar el hilo de actualización
     iniciarActualizacionAutomatica(MainClass.colaListos, ListosContainer, MainClass.colaBloqueados, Blista, MainClass.colaTerminados, Tlista);
         
-
+agregarGraficoThroughput();
+agregarGraficoTorta();
+iniciarActualizacionGraficoTorta();
+agregarGraficoBarrasTiempo();
+iniciarActualizacionGraficoBarrasTiempo();
 jScrollPane1.setPreferredSize(new java.awt.Dimension(200, 150));
 
 // Crear y añadir los paneles de CPU
@@ -190,6 +198,10 @@ public void setCicloDuracion(int duracion) {
         NumeroCICLOACTUAL = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         GraficosTab = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        CompTH = new javax.swing.JPanel();
+        IOCPU = new javax.swing.JPanel();
+        CompTiempos = new javax.swing.JPanel();
         EstadisticasTab = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel9 = new javax.swing.JPanel();
@@ -696,15 +708,58 @@ public void setCicloDuracion(int duracion) {
 
         TabContainer.addTab("Configuración", ConfiguracionTab);
 
+        javax.swing.GroupLayout CompTHLayout = new javax.swing.GroupLayout(CompTH);
+        CompTH.setLayout(CompTHLayout);
+        CompTHLayout.setHorizontalGroup(
+            CompTHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1069, Short.MAX_VALUE)
+        );
+        CompTHLayout.setVerticalGroup(
+            CompTHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Comparación Throughputs", CompTH);
+
+        javax.swing.GroupLayout IOCPULayout = new javax.swing.GroupLayout(IOCPU);
+        IOCPU.setLayout(IOCPULayout);
+        IOCPULayout.setHorizontalGroup(
+            IOCPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1069, Short.MAX_VALUE)
+        );
+        IOCPULayout.setVerticalGroup(
+            IOCPULayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Comparación I/O bound y CPU bound", IOCPU);
+
+        javax.swing.GroupLayout CompTiemposLayout = new javax.swing.GroupLayout(CompTiempos);
+        CompTiempos.setLayout(CompTiemposLayout);
+        CompTiemposLayout.setHorizontalGroup(
+            CompTiemposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1069, Short.MAX_VALUE)
+        );
+        CompTiemposLayout.setVerticalGroup(
+            CompTiemposLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 557, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Comparación Tiempos políticas", CompTiempos);
+
         javax.swing.GroupLayout GraficosTabLayout = new javax.swing.GroupLayout(GraficosTab);
         GraficosTab.setLayout(GraficosTabLayout);
         GraficosTabLayout.setHorizontalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1306, Short.MAX_VALUE)
+            .addGroup(GraficosTabLayout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1069, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 237, Short.MAX_VALUE))
         );
         GraficosTabLayout.setVerticalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 3147, Short.MAX_VALUE)
+            .addGroup(GraficosTabLayout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 2555, Short.MAX_VALUE))
         );
 
         TabContainer.addTab("Gráficos", GraficosTab);
@@ -1698,9 +1753,70 @@ private void escribirPCMAR(int nuevoValor) {
         e.printStackTrace();
     }
 }
+private void agregarGraficoThroughput() {
+        GraficoThroughput grafico = new GraficoThroughput();
+        CompTH.setLayout(new BorderLayout());
+        CompTH.add(grafico, BorderLayout.CENTER);
+        CompTH.revalidate();
+    }
 
+public void agregarGraficoTorta() {
+    if (graficoTorta == null) {
+        graficoTorta = new GraficoTorta();
+       IOCPU.setLayout(new BorderLayout());
+        IOCPU.add(graficoTorta, BorderLayout.CENTER);
+    }
+    IOCPU.validate(); // Refrescar el panel
+    IOCPU.repaint();  // Repintar para reflejar cambios
+}
 
+public void actualizarGraficoTorta() {
+    if (graficoTorta != null) {
+        graficoTorta.actualizarDatos();
+    }
+}
 
+public void iniciarActualizacionGraficoTorta() {
+    new Thread(() -> {
+        while (true) {
+            try {
+                Thread.sleep(1000); // Actualizar cada segundo
+                SwingUtilities.invokeLater(() -> actualizarGraficoTorta());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }).start();
+}
+
+public void agregarGraficoBarrasTiempo() {
+    if (graficoBarrasTiempo == null) {
+        graficoBarrasTiempo = new GraficoBarrasTiempo();
+        CompTiempos.setLayout(new BorderLayout());
+        CompTiempos.add(graficoBarrasTiempo, BorderLayout.CENTER);
+    }
+    CompTiempos.validate(); // Refrescar el panel
+    CompTiempos.repaint();  // Repintar para reflejar cambios
+}
+
+public void actualizarGraficoBarrasTiempo() {
+    if (graficoBarrasTiempo != null) {
+        graficoBarrasTiempo.actualizarDatos();
+    }
+}
+
+public void iniciarActualizacionGraficoBarrasTiempo() {
+    new Thread(() -> {
+        while (true) {
+            try {
+                Thread.sleep(1000); // Actualizar cada segundo
+                SwingUtilities.invokeLater(() -> actualizarGraficoBarrasTiempo());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }).start();
+}
 //COLA BLOQUEADOS
 
 
@@ -1759,6 +1875,8 @@ private void escribirPCMAR(int nuevoValor) {
     private javax.swing.JSpinner CiclosParaSatisExcSpinner;
     private javax.swing.JLabel CiclosParaSatisExcSpinner1;
     private javax.swing.JLabel CiclosParaSatisExcSpinner2;
+    private javax.swing.JPanel CompTH;
+    private javax.swing.JPanel CompTiempos;
     private javax.swing.JPanel ConfiguracionTab;
     private javax.swing.JButton CrearProcesoButton;
     private javax.swing.JSpinner DuracionCiclosSpinner;
@@ -1767,6 +1885,7 @@ private void escribirPCMAR(int nuevoValor) {
     private javax.swing.JButton GuardarCambiosDuracionCiclos;
     private javax.swing.JButton GuardarCambiosNumCPU;
     private javax.swing.JButton GuardarCambiosPlanificacionButton;
+    private javax.swing.JPanel IOCPU;
     private javax.swing.JLabel IOFCFSLB;
     private javax.swing.JLabel IOHRRNLB;
     private javax.swing.JLabel IORRLB;
@@ -1868,6 +1987,7 @@ private void escribirPCMAR(int nuevoValor) {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel nroProcesosFCFSLB;
     private javax.swing.JLabel nroProcesosHRRN;
     private javax.swing.JLabel nroProcesosRRLB;
