@@ -692,7 +692,7 @@ public void setCicloDuracion(int duracion) {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2814, Short.MAX_VALUE))
+                .addContainerGap(2820, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ConfiguracionTabLayout = new javax.swing.GroupLayout(ConfiguracionTab);
@@ -763,7 +763,7 @@ public void setCicloDuracion(int duracion) {
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GraficosTabLayout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2594, Short.MAX_VALUE))
+                .addGap(0, 2600, Short.MAX_VALUE))
         );
 
         TabContainer.addTab("Gráficos", GraficosTab);
@@ -1324,7 +1324,7 @@ public void setCicloDuracion(int duracion) {
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EstadisticasTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 3174, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 3180, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1437,7 +1437,10 @@ public void setCicloDuracion(int duracion) {
             ciclosParaGenerarExcepcion = 0;
             ciclosParaSatisfacerExcepcion = 0;
         }
-
+        
+        if ("I/O bound".equals(tipo)&&ciclosParaGenerarExcepcion>=cantidadInstrucciones) {
+            throw new IllegalArgumentException("Los ciclos para generar excepción no pueden ser iguales o mayores a la cant. de instrucciones");
+        }
         // Crear el objeto Proceso
         Proceso proceso = new Proceso(
                 nombre,
