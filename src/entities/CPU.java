@@ -5,7 +5,22 @@
 package entities;
 import java.util.concurrent.Semaphore;
 import proyecto1.operativos.soriano.luis.torres.alessandra.MainClass;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosCPUFCFS;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosCPUHRRN;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosCPURR;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosCPUSPN;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosCPUSRT;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosIOFCFS;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosIOHRRN;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosIORR;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosIOSPN;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.ProcesosIOSRT;
 import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.colaListos;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.nroProcesoFCFS;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.nroProcesoHRRN;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.nroProcesoRR;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.nroProcesoSPN;
+import static proyecto1.operativos.soriano.luis.torres.alessandra.MainClass.nroProcesoSRT;
 import ui.MainWindow;
 
 
@@ -55,7 +70,7 @@ public class CPU extends Thread{
             
             
             
-            System.out.println("Proceso asignado correctamente a la CPU " + id + ": " + proceso.getNombre());
+            //System.out.println("Proceso asignado correctamente a la CPU " + id + ": " + proceso.getNombre());
     } else {
         System.out.println("Error: No se puede asignar un proceso a la CPU " + id + " porque está desactivada.");
     }
@@ -112,9 +127,9 @@ public void run() {
                 proceso = colaListos.dequeue(); // Saca el proceso de la cola
                 proceso.setEstado("Ejecutando"); // Cambiar estado a "Ejecutando"
                 this.setProceso(proceso);
-                System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());////cuando se toma un proceso
+                //System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());////cuando se toma un proceso
             } else {
-                System.out.println("CPU " + id + proceso + ": La cola está vacía, esperando...");
+                //System.out.println("CPU " + id + proceso + ": La cola está vacía, esperando...");
             }
 
             // Liberar el semáforo después de tomar el proceso
@@ -132,7 +147,7 @@ public void run() {
                 Proceso soProceso = new Proceso("SO", 3, "CPU bound", 0, 0);
                 soProceso.setEstado("Ejecutando");
                 this.setProceso(soProceso); // Mostrar el SO en la interfaz
-                System.out.println("CPU " + id + " ejecutando el SO por 5 ciclos...");
+                //System.out.println("CPU " + id + " ejecutando el SO por 5 ciclos...");
 
                 for (int i = 0; i < 3; i++) {
                     int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
@@ -141,10 +156,10 @@ public void run() {
                      soProceso.setPC(soProceso.getPC() + 1);
                     soProceso.setMAR(soProceso.getMAR() + 1);
                     this.setProceso(this.getProceso()); 
-                    System.out.println("CPU " + id + " SO: Ciclo " + (i + 1) + " de 5");
+                    //System.out.println("CPU " + id + " SO: Ciclo " + (i + 1) + " de 5");
                 }
 
-                System.out.println("CPU " + id + " terminó la ejecución del SO.");
+                //System.out.println("CPU " + id + " terminó la ejecución del SO.");
                 
                 
                 this.liberarProceso();
@@ -178,7 +193,7 @@ public void run() {
                                     proceso.setEstado("Bloqueado");
                                     proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);
                                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosParaSatisfacerExcepcion());
-                                    System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
+                                    //System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
                                     MainClass.colaBloqueados.enqueue(proceso);
                                     
                                     this.liberarProceso(); // Liberar CPU
@@ -190,8 +205,18 @@ public void run() {
 
                             // Si cantidadInstrucciones llega a 0 antes de consumir el quantum
                             if (proceso.getCantidadInstrucciones() <= 0) {
+                                MainClass.ProcesosTotales =  MainClass.ProcesosTotales + 1;
                                 proceso.setEstado("Terminado");
                                 MainClass.colaTerminados.enqueue(proceso);
+                                nroProcesoRR = nroProcesoRR + 1;
+                                if(proceso.getTipo().equals("CPU bound")){
+                                            ProcesosCPURR = ProcesosCPURR + 1;
+                                        
+                                        }else if(proceso.getTipo().equals("I/O bound")){
+                                            ProcesosIORR = ProcesosIORR + 1;
+                                        
+                                        }
+                               
                                 this.liberarProceso();
                                 break;
                             }
@@ -216,7 +241,7 @@ public void run() {
                                 MainClass.colaListos.enqueue(proceso);
                                 proceso = colaListos.dequeue();
                                 proceso.setEstado("Ejecutando");
-                                System.out.println("CPU " + id + " preempte proceso: " + proceso.getNombre());
+                                //System.out.println("CPU " + id + " preempte proceso: " + proceso.getNombre());
                             }
                             semaforo.release();
 
@@ -239,7 +264,7 @@ public void run() {
                                     proceso.setEstado("Bloqueado");
                                     proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);
                                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosParaSatisfacerExcepcion());
-                                    System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
+                                    //System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
                                     MainClass.colaBloqueados.enqueue(proceso);
                                     this.liberarProceso();
                                     break;
@@ -247,8 +272,17 @@ public void run() {
                             }
 
                             if (proceso.getCantidadInstrucciones() <= 0) {
+                                MainClass.ProcesosTotales =  MainClass.ProcesosTotales + 1;
                                 proceso.setEstado("Terminado");
                                 MainClass.colaTerminados.enqueue(proceso);
+                                nroProcesoSRT = nroProcesoSRT + 1;
+                                if(proceso.getTipo().equals("CPU bound")){
+                                            ProcesosCPUSRT = ProcesosCPUSRT + 1;
+                                        
+                                        }else if(proceso.getTipo().equals("I/O bound")){
+                                            ProcesosIOSRT = ProcesosIOSRT + 1;
+                                        
+                                        }
                                 this.liberarProceso();
                                 break;
                             }
@@ -267,7 +301,7 @@ public void run() {
                             proceso.setPC(proceso.getPC() + 1);
                             proceso.setMAR(proceso.getMAR() + 1);
                             this.setProceso(this.getProceso());//actualizas la interfaz con el pc, mar etc actualizados
-                            System.out.println("aja si esto esta debajo de la inconcordancia me maman el huevo");
+                            //System.out.println("aja si esto esta debajo de la inconcordancia me maman el huevo");
                             
                             
                             /////ERROR SE DUPLICAAAA REVISAR
@@ -277,11 +311,11 @@ public void run() {
                                 proceso.setCiclosEjecutadosDesdeUltimoBloqueo(proceso.getCiclosEjecutadosDesdeUltimoBloqueo() + 1);
                                 
                                 if (proceso.getCiclosEjecutadosDesdeUltimoBloqueo() >= proceso.getCiclosParaGenerarExcepcion() && proceso.getEstado().equals("Bloqueado") == false) {
-                                    System.out.println("hey se esta metiendo en la cola de bloqueados");
+                                    //System.out.println("hey se esta metiendo en la cola de bloqueados");
                                     proceso.setEstado("Bloqueado");
                                     proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);//eyyyy
                                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosParaSatisfacerExcepcion());
-                                    System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
+                                    //System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
                                     MainClass.colaBloqueados.enqueue(proceso);
                                     this.liberarProceso();
                                     break;
@@ -289,8 +323,44 @@ public void run() {
                             }
 
                             if (proceso.getCantidadInstrucciones() <= 0) {
+                                MainClass.ProcesosTotales =  MainClass.ProcesosTotales + 1;
                                 proceso.setEstado("Terminado");
                                 MainClass.colaTerminados.enqueue(proceso);
+                                if(null != MainClass.politicaActual)switch (MainClass.politicaActual) {
+                                    case "FCFS":
+                                        nroProcesoFCFS = nroProcesoFCFS + 1;
+                                        if(proceso.getTipo().equals("CPU bound")){
+                                            ProcesosCPUFCFS = ProcesosCPUFCFS + 1;
+                                            System.out.println("PROCESOCPUFCSFC "+ ProcesosCPUFCFS);
+                                        
+                                        }else if(proceso.getTipo().equals("I/O bound")){
+                                            ProcesosIOFCFS = ProcesosIOFCFS + 1;
+                                        System.out.println("PROCESOCPUFCSFCIOOOOO "+ ProcesosIOFCFS);
+                                        }
+                                        break;
+                                    case "SPN":
+                                        nroProcesoSPN = nroProcesoSPN + 1;
+                                        if(proceso.getTipo().equals("CPU bound")){
+                                            ProcesosCPUSPN = ProcesosCPUSPN + 1;
+                                        
+                                        }else if(proceso.getTipo().equals("I/O bound")){
+                                            ProcesosIOSPN = ProcesosIOSPN + 1;
+                                        
+                                        }
+                                        break;
+                                    case "HRRN":
+                                        nroProcesoHRRN = nroProcesoHRRN + 1;
+                                        if(proceso.getTipo().equals("CPU bound")){
+                                            ProcesosCPUHRRN = ProcesosCPUHRRN + 1;
+                                        
+                                        }else if(proceso.getTipo().equals("I/O bound")){
+                                            ProcesosIOHRRN = ProcesosIOHRRN + 1;
+                                        
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
                                 this.liberarProceso();
                                 break;
                             }

@@ -7,6 +7,7 @@ import entities.CPU;
 import entities.Cola;
 import entities.Manejotxt;
 import entities.Proceso;
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +32,50 @@ public class MainClass {
     public static String politicaActual = "FCFS";
     public static volatile boolean actualizarColaListos = true;
     
+    
+    // ESTADISTICASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+    public static int ProcesosTotales = 0;
+    public static int Cicloact = 0;
+    public static int ProcesosIOtotales = 0;
+    public static int ProcesosCPUtotales = 0;
+    public static double ThroughputTotal = 0.0;
+    
+   
+     public static int TiempoFCFS = 0;
+     public static int nroProcesoFCFS = 0;
+     public static int ProcesosIOFCFS = 0;
+    public static int ProcesosCPUFCFS = 0;
+    public static double ThroughputFCFS = 0;
+     
+     
+     public static int TiempoRR = 0;
+     public static int nroProcesoRR = 0;
+     public static int ProcesosIORR = 0;
+    public static int ProcesosCPURR = 0;
+    public static double ThroughputRR = 0;
+     
+     
+     public static int TiempoSPN = 0;
+     public static int nroProcesoSPN = 0;
+     public static int ProcesosIOSPN = 0;
+    public static int ProcesosCPUSPN = 0;
+    public static double ThroughputSPN = 0;
+     
+     
+     public static int TiempoSRT = 0;
+     public static int nroProcesoSRT = 0;
+     public static int ProcesosIOSRT = 0;
+    public static int ProcesosCPUSRT = 0;
+    public static double ThroughputSRT = 0;
+     
+     public static int TiempoHRRN = 0;
+     public static int nroProcesoHRRN = 0;
+     public static int ProcesosIOHRRN = 0;
+    public static int ProcesosCPUHRRN = 0;
+    public static double ThroughputHRRN = 0;
+    // ESTADISTICASSSSSSSSSS
+    
+    
     //para el hilo que maneja la cola de listos
     public static synchronized String getPoliticaActual() {
         return politicaActual;
@@ -54,9 +99,9 @@ public class MainClass {
         iniciarRelojGlobal(); 
         manejarColaListosSinLocks();
         
+        //generarProcesosAutomáticamente();
         
-        
-        
+        actualizarVarEstadisticas();
 
         int cpusActivos = Manejotxt.leerCPUsActivos();
         if (cpusActivos == 3) {
@@ -79,7 +124,10 @@ public class MainClass {
         cpu3.start();
         
         manejarColaBloqueados();
-
+        
+        
+        
+        
         // Esperar unos segundos para observar la ejecución
         try {
             Thread.sleep(1500000); // Simular tiempo de ejecución general
@@ -227,14 +275,14 @@ public class MainClass {
                 for (int i = 0; i < tamano; i++) {
                     Proceso proceso = (Proceso) colaBloqueados.dequeue(); // 
                     proceso.setCiclosRestantesBloqueado(proceso.getCiclosRestantesBloqueado() - 1);
-                    System.out.println("ciclosrestantes"+proceso.getCiclosRestantesBloqueado());
+                    //System.out.println("ciclosrestantes"+proceso.getCiclosRestantesBloqueado());
                     
                     if (proceso.getCiclosRestantesBloqueado() <= 0) {
                         proceso.setEstado("Listo");
                         proceso.setCiclosRestantesBloqueado(0);
                         colaListos.enqueue(proceso); // Mover a la cola de listos
-                        System.out.println("encolacion en LISTOS papaappaapaa");
-                        System.out.println(proceso.getCiclosRestantesBloqueado());
+                        //System.out.println("encolacion en LISTOS papaappaapaa");
+                        //System.out.println(proceso.getCiclosRestantesBloqueado());
                     } else {
                         proceso.setEstado("Bloqueado");//solo nos aseguramos que su estado este bien
                         colaBloqueados.enqueue(proceso); // Reencolar si no termina
@@ -282,7 +330,84 @@ public static void manejarColaListosSinLocks() {
         }
     }).start();
 }
-    
+
+//VARIABLES ESTADISTICAS
+public static void actualizarVarEstadisticas() {
+    new Thread(() -> {
+        while (true) {
+            try {
+                int duracionCiclo = mainWindow.getCicloDuracion();
+                System.out.println(cicloGlobal);
+                Thread.sleep(duracionCiclo * 1000L); // Pausa de 1 segundo (o el tiempo que prefieras)
+
+                // Obtener la política actual desde MainClass
+                String politica = MainClass.getPoliticaActual();
+                System.out.println(politica);
+
+                // Ordenar según la política
+                switch (politica) {
+                    case "FCFS":
+                        TiempoFCFS = TiempoFCFS + 1;
+                        break;
+                    case "SRT":
+                        TiempoSRT = TiempoSRT + 1;
+                        break;
+                    case "SPN":
+                        TiempoSPN = TiempoSPN + 1;
+                        break;
+                    case "HRRN":
+                        TiempoHRRN = TiempoHRRN + 1;
+                        break;
+                    case "Round Robin":
+                        TiempoRR = TiempoRR + 1;
+                        break;
+                 
+                }
+                 ProcesosIOtotales = ProcesosIOFCFS + ProcesosIOHRRN+ ProcesosIORR + ProcesosIOSPN + ProcesosIOSRT;
+                 ProcesosCPUtotales = ProcesosCPUFCFS + ProcesosCPUHRRN+ ProcesosCPURR + ProcesosCPUSPN + ProcesosCPUSRT;
+                
+                
+                
+                if(TiempoFCFS !=0){
+                    ThroughputFCFS = (double)nroProcesoFCFS / TiempoFCFS;
+                    
+                }
+                
+                 if(TiempoRR !=0){
+                    ThroughputRR = (double)nroProcesoRR / TiempoRR;
+                    
+                 }
+                 
+                  if(TiempoSPN !=0){
+                    ThroughputSPN = (double)nroProcesoSPN / TiempoSPN;
+                    
+                  }
+                  
+                   if(TiempoSRT !=0){
+                    ThroughputHRRN = (double)nroProcesoSRT / TiempoSRT;
+                    
+                   }
+                   
+                    if(TiempoHRRN !=0){
+                    ThroughputHRRN = (double) nroProcesoHRRN / TiempoHRRN;
+                    }
+
+                if(cicloGlobal !=0){
+                    ThroughputTotal = (double) ProcesosTotales / cicloGlobal;  
+                    System.out.println();
+                }
+                
+   
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }).start();
+}
+
+
+
    //A Partir de aqui los metodos para ordenar la cola de listos segun la politica de planificacion:
     
     //SRT
@@ -377,5 +502,33 @@ public static void manejarColaListosSinLocks() {
 }
 
 
+public static void generarProcesosAutomáticamente() {
+    String[] tipos = {"CPU bound", "I/O bound"}; // Tipos de procesos disponibles
+    Random random = new Random();
+
+    for (int i = 1; i <= 10; i++) {
+        // Generar características aleatorias para los procesos
+        String nombre = "Proceso_" + i;
+        int cantidadInstrucciones = random.nextInt(10) + 1; // Entre 1 y 10 instrucciones
+        String tipo = tipos[random.nextInt(tipos.length)]; // Aleatorio entre "CPU bound" y "I/O bound"
+        int ciclosParaGenerarExcepcion = tipo.equals("I/O bound") ? random.nextInt(5) + 1 : 0; // Si es I/O bound, genera entre 1 y 5 ciclos
+        int ciclosParaSatisfacerExcepcion = tipo.equals("I/O bound") ? random.nextInt(3) + 1 : 0; // Si es I/O bound, genera entre 1 y 3 ciclos
+
+        // Crear el proceso
+        Proceso nuevoProceso = new Proceso(
+            nombre,
+            cantidadInstrucciones,
+            tipo,
+            ciclosParaGenerarExcepcion,
+            ciclosParaSatisfacerExcepcion
+        );
+
+        // Encolar el proceso en la cola de listos
+        MainClass.colaListos.enqueue(nuevoProceso);
+
+        // Log para verificar los procesos generados
+        //System.out.println("Generado: " + nuevoProceso);
+    }
+}
 }
 
