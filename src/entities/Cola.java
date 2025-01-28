@@ -34,6 +34,8 @@ public class Cola<T> {
         }
         finalCola = nuevoNodo; // Actualizamos el final de la cola
         tamano++;
+       
+    
     }
 
     /**
@@ -68,11 +70,8 @@ public class Cola<T> {
     
     
     public Nodo<T> peekNode() {
-        if (isEmpty()) {
-            throw new IllegalStateException("La cola está vacía.");
-        }
-        return frente;
-    }
+    return isEmpty() ? null : frente;
+}
 
     /**
      * Verifica si la cola está vacía.
