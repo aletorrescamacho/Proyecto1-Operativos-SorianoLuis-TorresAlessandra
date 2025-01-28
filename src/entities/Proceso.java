@@ -23,6 +23,7 @@ public class Proceso {
     private int cpuIdThread;
     private int cicloEnqueCola;//HRRN
     private int instruccionesEjecutadas; //SRT
+    private boolean tomado = false; // Indica si el proceso fue tomado por un CPU
 
     // Contador de ID único para cada proceso
     private static int contadorID = 1;
@@ -129,7 +130,11 @@ public class Proceso {
     public int getId() {
         return id;
     }
-
+    
+    public void setId(int ID){
+        this.id = ID;
+    }
+    
     public String getEstado() {
         return estado;
     }
@@ -173,6 +178,14 @@ public class Proceso {
 
     public void setcpuIdThread(int cpuIdThread) {
         this.cpuIdThread = cpuIdThread;
+    }
+    
+    public boolean isTomado() {
+        return tomado;
+    }
+
+    public void setTomado(boolean tomado) {
+        this.tomado = tomado;
     }
     // Método toString() para imprimir el proceso
     @Override
