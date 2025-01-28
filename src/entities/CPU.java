@@ -123,13 +123,15 @@ public void run() {
             // Intentar obtener un proceso de la cola
             if (!colaListos.isEmpty()) {
                  
+                proceso = colaListos.buscarNoTomado();
                
-                proceso = colaListos.dequeue(); // Saca el proceso de la cola
-                proceso.setEstado("Ejecutando"); // Cambiar estado a "Ejecutando"
-                this.setProceso(proceso);
-                //System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());////cuando se toma un proceso
-            } else {
-                //System.out.println("CPU " + id + proceso + ": La cola está vacía, esperando...");
+                if(proceso != null){proceso.setTomado(true);
+                
+                System.out.println("CPU " + id + " tomó el proceso: " + proceso.getNombre());}////cuando se toma un proceso  
+            } 
+            
+            else {
+                System.out.println("CPU " + id + proceso + ": La cola está vacía, esperando...");
             }
 
             // Liberar el semáforo después de tomar el proceso
@@ -144,16 +146,21 @@ public void run() {
                
                 
                 Proceso act = proceso;
+                
                 Proceso soProceso = new Proceso("SO", 3, "CPU bound", 0, 0);
+                soProceso.setId(0);
+                
                 soProceso.setEstado("Ejecutando");
+                
                 this.setProceso(soProceso); // Mostrar el SO en la interfaz
-                //System.out.println("CPU " + id + " ejecutando el SO por 5 ciclos...");
+                
+                System.out.println("CPU " + id + " ejecutando el SO por 5 ciclos...");
 
                 for (int i = 0; i < 3; i++) {
                     int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
                     duracionCiclo = MainClass.mainWindow.getCicloDuracion();
                     Thread.sleep(duracionCiclo * 1000L); // Simular un ciclo del SO
-                     soProceso.setPC(soProceso.getPC() + 1);
+                    soProceso.setPC(soProceso.getPC() + 1);
                     soProceso.setMAR(soProceso.getMAR() + 1);
                     this.setProceso(this.getProceso()); 
                     //System.out.println("CPU " + id + " SO: Ciclo " + (i + 1) + " de 5");
@@ -165,8 +172,11 @@ public void run() {
                 this.liberarProceso();
                 
 
-                
+                act.setEstado("Ejecutando");
+                colaListos.remove(act);
+                act.setTomado(false);
                 this.setProceso(act);
+                
                 
                 int duracionCiclo = MainClass.mainWindow.getCicloDuracion();
                 // Lógica específica según la política de planificación
