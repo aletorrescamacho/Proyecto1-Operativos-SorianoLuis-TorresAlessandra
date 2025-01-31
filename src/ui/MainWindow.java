@@ -185,7 +185,6 @@ public void setCicloDuracion(int duracion) {
         CambiarnumCPUsCB = new javax.swing.JComboBox<>();
         GuardarCambiosNumCPU = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         NumeroCPUSACTUALEs = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -193,10 +192,9 @@ public void setCicloDuracion(int duracion) {
         GuardarCambiosDuracionCiclos = new javax.swing.JButton();
         DuracionCiclosSpinner = new javax.swing.JSpinner();
         SegundostituloLabel = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        NumeroCICLOACTUAL = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        NumeroCICLOACTUAL = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
         GraficosTab = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         CompTH = new javax.swing.JPanel();
@@ -486,11 +484,21 @@ public void setCicloDuracion(int duracion) {
 
         TabContainer.addTab("Simulador", jPanel);
 
-        jPanel3.setBackground(new java.awt.Color(192, 204, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        TituloPpalConfiguracion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TituloPpalConfiguracion.setBackground(new java.awt.Color(0, 0, 0));
+        TituloPpalConfiguracion.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        TituloPpalConfiguracion.setForeground(new java.awt.Color(0, 51, 102));
         TituloPpalConfiguracion.setText("Configuración");
+        jPanel3.add(TituloPpalConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 100, -1, -1));
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 255)));
+
+        CambiarnumCPUsLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        CambiarnumCPUsLabel.setForeground(new java.awt.Color(0, 51, 102));
         CambiarnumCPUsLabel.setText("Cambiar número de CPUs activos");
 
         CambiarnumCPUsCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2", "3" }));
@@ -500,6 +508,7 @@ public void setCicloDuracion(int duracion) {
             }
         });
 
+        GuardarCambiosNumCPU.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         GuardarCambiosNumCPU.setText("Guardar Cambios");
         GuardarCambiosNumCPU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -508,42 +517,16 @@ public void setCicloDuracion(int duracion) {
         });
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Actualmente se encuentran");
+        NumeroCPUSACTUALEs.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        NumeroCPUSACTUALEs.setText("  2");
+        jPanel6.add(NumeroCPUSACTUALEs, new org.netbeans.lib.awtextra.AbsoluteConstraints(14, 6, 82, 85));
 
-        NumeroCPUSACTUALEs.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        NumeroCPUSACTUALEs.setText("2");
-
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 102));
         jLabel3.setText("CPUs Activos");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(NumeroCPUSACTUALEs)))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NumeroCPUSACTUALEs)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 97, 120, -1));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -552,148 +535,77 @@ public void setCicloDuracion(int duracion) {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(GuardarCambiosNumCPU))
+                        .addGap(19, 19, 19)
+                        .addComponent(CambiarnumCPUsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(CambiarnumCPUsCB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CambiarnumCPUsLabel, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(18, 18, 18)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CambiarnumCPUsCB, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(63, 63, 63))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarCambiosNumCPU)
+                        .addGap(88, 88, 88)))
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addGap(93, 93, 93))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(14, 14, 14)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(CambiarnumCPUsLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(CambiarnumCPUsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
                         .addComponent(CambiarnumCPUsCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(39, 39, 39)
                         .addComponent(GuardarCambiosNumCPU)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        CambiarduracionCiclosLabel.setText("Cambiar duración de ciclos de ejecución");
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 220, 480, -1));
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 255)));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        CambiarduracionCiclosLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        CambiarduracionCiclosLabel.setForeground(new java.awt.Color(0, 51, 102));
+        CambiarduracionCiclosLabel.setText("Cambiar duración de ciclos de ejecución");
+        jPanel5.add(CambiarduracionCiclosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 16, -1, -1));
+
+        GuardarCambiosDuracionCiclos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         GuardarCambiosDuracionCiclos.setText("Guardar Cambios");
         GuardarCambiosDuracionCiclos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarCambiosDuracionCiclosActionPerformed(evt);
             }
         });
+        jPanel5.add(GuardarCambiosDuracionCiclos, new org.netbeans.lib.awtextra.AbsoluteConstraints(116, 132, -1, -1));
 
         DuracionCiclosSpinner.setValue(1);
+        jPanel5.add(DuracionCiclosSpinner, new org.netbeans.lib.awtextra.AbsoluteConstraints(83, 59, 189, -1));
 
+        SegundostituloLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        SegundostituloLabel.setForeground(new java.awt.Color(0, 51, 102));
         SegundostituloLabel.setText("Segundos");
+        jPanel5.add(SegundostituloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, -1, -1));
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel7.setText("Actualmente el ciclo de ejecución dura");
-
-        NumeroCICLOACTUAL.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        NumeroCICLOACTUAL.setText("2");
-
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 51, 102));
         jLabel9.setText("Segundos");
+        jPanel5.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 98, -1));
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addComponent(NumeroCICLOACTUAL)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NumeroCICLOACTUAL)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
+        NumeroCICLOACTUAL.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        NumeroCICLOACTUAL.setText("2");
+        jPanel5.add(NumeroCICLOACTUAL, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, -1, -1));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(DuracionCiclosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(CambiarduracionCiclosLabel)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addComponent(SegundostituloLabel))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(GuardarCambiosDuracionCiclos)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(19, 19, 19))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(CambiarduracionCiclosLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DuracionCiclosSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SegundostituloLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(GuardarCambiosDuracionCiclos)
-                        .addGap(31, 31, 31))))
-        );
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 510, 480, 180));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TituloPpalConfiguracion)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(783, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(TituloPpalConfiguracion)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(2814, Short.MAX_VALUE))
-        );
+        jLabel45.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/5x5 (7000 x 3571 px) (2000 x 1080 px) (1).png"))); // NOI18N
+        jLabel45.setText("jLabel45");
+        jPanel3.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, -1, -1));
 
         javax.swing.GroupLayout ConfiguracionTabLayout = new javax.swing.GroupLayout(ConfiguracionTab);
         ConfiguracionTab.setLayout(ConfiguracionTabLayout);
@@ -757,7 +669,7 @@ public void setCicloDuracion(int duracion) {
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GraficosTabLayout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1069, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 237, Short.MAX_VALUE))
+                .addGap(0, 1745, Short.MAX_VALUE))
         );
         GraficosTabLayout.setVerticalGroup(
             GraficosTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -872,7 +784,7 @@ public void setCicloDuracion(int duracion) {
         jLabel15.setForeground(new java.awt.Color(0, 0, 102));
         jLabel15.setText("Estadisticas FCFS");
 
-        jLabel16.setText("Ciclos ejecutando política:");
+        jLabel16.setText("Tiempo ejecutando política:");
 
         TiempoFCFS.setText("TiempoFCFS");
 
@@ -961,7 +873,7 @@ public void setCicloDuracion(int duracion) {
         jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("Estadisticas Round Robin");
 
-        jLabel21.setText("Ciclos ejecutando política:");
+        jLabel21.setText("Tiempo ejecutando política:");
 
         TiempoRR.setText("TiempoFCFS");
 
@@ -1050,7 +962,7 @@ public void setCicloDuracion(int duracion) {
         jLabel27.setForeground(new java.awt.Color(0, 0, 102));
         jLabel27.setText("Estadisticas SPN");
 
-        jLabel28.setText("Ciclos ejecutando política:");
+        jLabel28.setText("Tiempo ejecutando política:");
 
         TiempoSPN.setText("TiempoFCFS");
 
@@ -1138,7 +1050,7 @@ public void setCicloDuracion(int duracion) {
         jLabel33.setForeground(new java.awt.Color(0, 0, 102));
         jLabel33.setText("Estadisticas SRT");
 
-        jLabel34.setText("Ciclos ejecutando política:");
+        jLabel34.setText("Tiempo ejecutando política:");
 
         TiempoSRT.setText("TiempoFCFS");
 
@@ -1226,7 +1138,7 @@ public void setCicloDuracion(int duracion) {
         jLabel39.setForeground(new java.awt.Color(0, 0, 102));
         jLabel39.setText("Estadisticas HRRN");
 
-        jLabel40.setText("Ciclos ejecutando política:");
+        jLabel40.setText("Tiempo ejecutando política:");
 
         TiempoHRRN.setText("TiempoFCFS");
 
@@ -1317,7 +1229,7 @@ public void setCicloDuracion(int duracion) {
             EstadisticasTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EstadisticasTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1294, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 2802, Short.MAX_VALUE)
                 .addContainerGap())
         );
         EstadisticasTabLayout.setVerticalGroup(
@@ -1500,59 +1412,58 @@ public void setCicloDuracion(int duracion) {
         // TODO add your handling code here:
     }//GEN-LAST:event_PoliticadePlanificacionCBActionPerformed
 
-    private void CambiarnumCPUsCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarnumCPUsCBActionPerformed
-        // TODO add your handling code here: AQUI NADA NO ES BOTON
-    }//GEN-LAST:event_CambiarnumCPUsCBActionPerformed
-
-    private void GuardarCambiosNumCPUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosNumCPUActionPerformed
-         String cpusActivos = (String) CambiarnumCPUsCB.getSelectedItem();
-
-    // Actualizar el valor en el label
-    NumeroCPUSACTUALEs.setText(cpusActivos);
-
-    // Guardar el nuevo valor en el archivo de configuración
-    guardarConfiguracion("CPUsActivos", cpusActivos);
-
-    // Cambiar el estado del CPU 3 según la nueva configuración
-    if (cpusActivos.equals("2")) {
-        cpu3.setActivo(false); // Desactivar CPU 3
-         cpuContainer3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo
-        cpuPane3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo del panel
-        for (java.awt.Component component : cpuPane3.getComponents()) {
-            if (component instanceof javax.swing.JLabel) {
-                ((javax.swing.JLabel) component).setForeground(new java.awt.Color(255, 102, 102)); // Texto blanco
-            }}
-        
-    } else if (cpusActivos.equals("3")) {
-        cpu3.setActivo(true); // Activar CPU 3
-        cpuContainer3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal
-        cpuPane3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal del panel
-        for (java.awt.Component component : cpuPane3.getComponents()) {
-            if (component instanceof javax.swing.JLabel) {
-                ((javax.swing.JLabel) component).setForeground(new java.awt.Color(0, 0, 0)); // Texto negro
-            }
-        }
-    }
-    
-    cpuContainer3.repaint();
-    // Mostrar mensaje de confirmación
-    JOptionPane.showMessageDialog(this, "Número de CPUs guardado correctamente.");
-
-    // Imprimir el estado de las CPUs para verificar
-    //System.out.println("CPU 1: " + cpu1);
-    //System.out.println("CPU 2: " + cpu2);
-    //System.out.println("CPU 3: " + cpu3);
-    
-    
-    }//GEN-LAST:event_GuardarCambiosNumCPUActionPerformed
-
     private void GuardarCambiosDuracionCiclosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosDuracionCiclosActionPerformed
         String duracionCiclos = String.valueOf(DuracionCiclosSpinner.getValue());
         cicloDuracion = Integer.parseInt(duracionCiclos); // Actualiza la variable global
-    NumeroCICLOACTUAL.setText(duracionCiclos); // Actualiza el label
-    guardarConfiguracion("DuracionCiclos", duracionCiclos); // Guarda en el archivo
-    JOptionPane.showMessageDialog(this, "Duración de ciclos guardada correctamente.");
+        NumeroCICLOACTUAL.setText(duracionCiclos); // Actualiza el label
+        guardarConfiguracion("DuracionCiclos", duracionCiclos); // Guarda en el archivo
+        JOptionPane.showMessageDialog(this, "Duración de ciclos guardada correctamente.");
     }//GEN-LAST:event_GuardarCambiosDuracionCiclosActionPerformed
+
+    private void GuardarCambiosNumCPUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosNumCPUActionPerformed
+        String cpusActivos = (String) CambiarnumCPUsCB.getSelectedItem();
+
+        // Actualizar el valor en el label
+        NumeroCPUSACTUALEs.setText(cpusActivos);
+
+        // Guardar el nuevo valor en el archivo de configuración
+        guardarConfiguracion("CPUsActivos", cpusActivos);
+
+        // Cambiar el estado del CPU 3 según la nueva configuración
+        if (cpusActivos.equals("2")) {
+            cpu3.setActivo(false); // Desactivar CPU 3
+            cpuContainer3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo
+            cpuPane3.setBackground(new java.awt.Color(255, 102, 102)); // Fondo rojo del panel
+            for (java.awt.Component component : cpuPane3.getComponents()) {
+                if (component instanceof javax.swing.JLabel) {
+                    ((javax.swing.JLabel) component).setForeground(new java.awt.Color(255, 102, 102)); // Texto blanco
+                }}
+
+            } else if (cpusActivos.equals("3")) {
+                cpu3.setActivo(true); // Activar CPU 3
+                cpuContainer3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal
+                cpuPane3.setBackground(new java.awt.Color(242,242,242)); // Fondo normal del panel
+                for (java.awt.Component component : cpuPane3.getComponents()) {
+                    if (component instanceof javax.swing.JLabel) {
+                        ((javax.swing.JLabel) component).setForeground(new java.awt.Color(0, 0, 0)); // Texto negro
+                    }
+                }
+            }
+
+            cpuContainer3.repaint();
+            // Mostrar mensaje de confirmación
+            JOptionPane.showMessageDialog(this, "Número de CPUs guardado correctamente.");
+
+            // Imprimir el estado de las CPUs para verificar
+            //System.out.println("CPU 1: " + cpu1);
+            //System.out.println("CPU 2: " + cpu2);
+            //System.out.println("CPU 3: " + cpu3);
+
+    }//GEN-LAST:event_GuardarCambiosNumCPUActionPerformed
+
+    private void CambiarnumCPUsCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarnumCPUsCBActionPerformed
+        // TODO add your handling code here: AQUI NADA NO ES BOTON
+    }//GEN-LAST:event_CambiarnumCPUsCBActionPerformed
 
         // valores vuelven a ser 0 despues de crear un proceso
     private void resetForm() {
@@ -1940,7 +1851,6 @@ public void iniciarActualizacionGraficoBarrasTiempo() {
     private javax.swing.JPanel cpuContainer3;
     private javax.swing.JLabel cpuboundTot;
     private javax.swing.JLabel ioboundTot;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1979,9 +1889,9 @@ public void iniciarActualizacionGraficoBarrasTiempo() {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel;
@@ -1998,7 +1908,6 @@ public void iniciarActualizacionGraficoBarrasTiempo() {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
