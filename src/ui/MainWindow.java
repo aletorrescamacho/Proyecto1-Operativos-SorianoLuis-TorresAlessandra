@@ -440,6 +440,7 @@ public void setCicloDuracion(int duracion) {
 
         jScrollPane1.setToolTipText("");
 
+        ListosContainer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ListosContainer.setLayout(new javax.swing.BoxLayout(ListosContainer, javax.swing.BoxLayout.LINE_AXIS));
         jScrollPane1.setViewportView(ListosContainer);
 
@@ -450,6 +451,8 @@ public void setCicloDuracion(int duracion) {
 
         jLabel5.setText("Cola de Listos:");
         jPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 29, -1, -1));
+
+        Blista.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout BlistaLayout = new javax.swing.GroupLayout(Blista);
         Blista.setLayout(BlistaLayout);
@@ -468,6 +471,8 @@ public void setCicloDuracion(int duracion) {
 
         jLabel6.setText("Cola de Bloqueados:");
         jPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 221, -1, -1));
+
+        Tlista.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout TlistaLayout = new javax.swing.GroupLayout(Tlista);
         Tlista.setLayout(TlistaLayout);

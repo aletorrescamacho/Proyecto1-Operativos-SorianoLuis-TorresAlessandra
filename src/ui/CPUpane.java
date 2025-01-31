@@ -79,14 +79,15 @@ public class CPUpane extends javax.swing.JPanel {
         StatusprocesoLabel = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         TipoprocesoLabel = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        IDcpuLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        IDcpuLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         IDcpuLabel.setText("1");
         add(IDcpuLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 20, 30));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("CPU");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 0, 75, 30));
 
@@ -96,7 +97,7 @@ public class CPUpane extends javax.swing.JPanel {
 
         NombreProcesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         NombreProcesoLabel.setText("Nombre del Proceso");
-        add(NombreProcesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, 60));
+        add(NombreProcesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 140, 20));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         jLabel5.setText("ID:");
@@ -137,6 +138,10 @@ public class CPUpane extends javax.swing.JPanel {
         TipoprocesoLabel.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
         TipoprocesoLabel.setText("Tipo proceso");
         add(TipoprocesoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 140, 60));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ui/Sin título (240 x 160 px).png"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -152,6 +157,7 @@ public class CPUpane extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
