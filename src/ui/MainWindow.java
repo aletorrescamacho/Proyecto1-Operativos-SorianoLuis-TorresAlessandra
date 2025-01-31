@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Random;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -177,6 +178,7 @@ public void setCicloDuracion(int duracion) {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tlista = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         ConfiguracionTab = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         TituloPpalConfiguracion = new javax.swing.JLabel();
@@ -277,13 +279,15 @@ public void setCicloDuracion(int duracion) {
         CPUHRRNLB = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         THHRRN = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel.setBackground(new java.awt.Color(192, 204, 255));
+        jPanel.setBackground(new java.awt.Color(64, 91, 144));
         jPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(222, 225, 242));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         TituloCrearProceso.setText("Crear Proceso");
@@ -340,6 +344,8 @@ public void setCicloDuracion(int duracion) {
 
         jPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 29, 300, 237));
 
+        jPanel2.setBackground(new java.awt.Color(222, 225, 242));
+
         PoliticadePlanificacionCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FCFS", "Round Robin", "SPN", "SRT", "HRRN" }));
         PoliticadePlanificacionCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,7 +392,7 @@ public void setCicloDuracion(int duracion) {
 
         jPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 302, 300, -1));
 
-        jPanel7.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel7.setBackground(new java.awt.Color(222, 225, 242));
         jPanel7.setLayout(new java.awt.GridLayout(3, 1, 10, 10));
 
         javax.swing.GroupLayout cpuContainer1Layout = new javax.swing.GroupLayout(cpuContainer1);
@@ -430,11 +436,13 @@ public void setCicloDuracion(int duracion) {
 
         jPanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(1035, 29, -1, -1));
 
-        NumciclorrelojLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        NumciclorrelojLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        NumciclorrelojLabel.setForeground(new java.awt.Color(255, 255, 255));
         NumciclorrelojLabel.setText("0");
         jPanel.add(NumciclorrelojLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 471, 130, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Ciclo de reloj Global");
         jPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 437, 290, -1));
 
@@ -446,9 +454,13 @@ public void setCicloDuracion(int duracion) {
 
         jPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 51, 659, 152));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Cola de Terminados:");
         jPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 420, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Cola de Listos:");
         jPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 29, -1, -1));
 
@@ -469,6 +481,8 @@ public void setCicloDuracion(int duracion) {
 
         jPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 243, 643, 151));
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Cola de Bloqueados:");
         jPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(336, 221, -1, -1));
 
@@ -488,6 +502,14 @@ public void setCicloDuracion(int duracion) {
         jScrollPane2.setViewportView(Tlista);
 
         jPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 440, 640, 160));
+
+        jButton1.setText("Crear 20 procesos automáticamente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 270, 30));
 
         TabContainer.addTab("Simulador", jPanel);
 
@@ -869,7 +891,7 @@ public void setCicloDuracion(int duracion) {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 150));
+        jPanel9.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1310, 160));
 
         jPanel11.setBackground(new java.awt.Color(221, 225, 245));
 
@@ -877,7 +899,7 @@ public void setCicloDuracion(int duracion) {
         jLabel15.setForeground(new java.awt.Color(0, 0, 102));
         jLabel15.setText("Estadisticas FCFS");
 
-        jLabel16.setText("Tiempo ejecutando política:");
+        jLabel16.setText("Ciclos ejecutando política:");
 
         TiempoFCFS.setText("TiempoFCFS");
 
@@ -904,7 +926,6 @@ public void setCicloDuracion(int duracion) {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel15)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -927,8 +948,11 @@ public void setCicloDuracion(int duracion) {
                             .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(THFCFS, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(THFCFS, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -966,7 +990,7 @@ public void setCicloDuracion(int duracion) {
         jLabel20.setForeground(new java.awt.Color(0, 0, 102));
         jLabel20.setText("Estadisticas Round Robin");
 
-        jLabel21.setText("Tiempo ejecutando política:");
+        jLabel21.setText("Ciclos ejecutando política:");
 
         TiempoRR.setText("TiempoFCFS");
 
@@ -1055,7 +1079,7 @@ public void setCicloDuracion(int duracion) {
         jLabel27.setForeground(new java.awt.Color(0, 0, 102));
         jLabel27.setText("Estadisticas SPN");
 
-        jLabel28.setText("Tiempo ejecutando política:");
+        jLabel28.setText("Ciclos ejecutando política:");
 
         TiempoSPN.setText("TiempoFCFS");
 
@@ -1143,7 +1167,7 @@ public void setCicloDuracion(int duracion) {
         jLabel33.setForeground(new java.awt.Color(0, 0, 102));
         jLabel33.setText("Estadisticas SRT");
 
-        jLabel34.setText("Tiempo ejecutando política:");
+        jLabel34.setText("Ciclos ejecutando política:");
 
         TiempoSRT.setText("TiempoFCFS");
 
@@ -1231,7 +1255,7 @@ public void setCicloDuracion(int duracion) {
         jLabel39.setForeground(new java.awt.Color(0, 0, 102));
         jLabel39.setText("Estadisticas HRRN");
 
-        jLabel40.setText("Tiempo ejecutando política:");
+        jLabel40.setText("Ciclos ejecutando política:");
 
         TiempoHRRN.setText("TiempoFCFS");
 
@@ -1313,6 +1337,7 @@ public void setCicloDuracion(int duracion) {
         );
 
         jPanel9.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 160, -1, 180));
+        jPanel9.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 1260, 20));
 
         jScrollPane4.setViewportView(jPanel9);
 
@@ -1561,6 +1586,54 @@ public void setCicloDuracion(int duracion) {
     guardarConfiguracion("DuracionCiclos", duracionCiclos); // Guarda en el archivo
     JOptionPane.showMessageDialog(this, "Duración de ciclos guardada correctamente.");
     }//GEN-LAST:event_GuardarCambiosDuracionCiclosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+        for (int i = 1; i <= 20; i++) {
+            int pcMarInicial = leerPCMAR();
+            if (pcMarInicial == -1) {
+                throw new IllegalStateException("No se pudo leer el valor inicial de PC/MAR.");
+            }
+
+            // Generar datos automáticamente
+            String nombre = "Proceso_" + i;
+            int cantidadInstrucciones = new Random().nextInt(10) + 1; // Entre 1 y 10 instrucciones
+            String tipo = (i % 2 == 0) ? "CPU bound" : "I/O bound"; // Alterna entre CPU bound e I/O bound
+            int ciclosParaGenerarExcepcion = tipo.equals("I/O bound") ? new Random().nextInt(3) + 1 : 0;
+            int ciclosParaSatisfacerExcepcion = tipo.equals("I/O bound") ? new Random().nextInt(2) + 1 : 0;
+
+            // Crear el proceso
+            Proceso proceso = new Proceso(
+                nombre,
+                cantidadInstrucciones,
+                tipo,
+                ciclosParaGenerarExcepcion,
+                ciclosParaSatisfacerExcepcion
+            );
+
+            proceso.setCicloEnqueCola(MainClass.cicloGlobal);
+
+            // Asignar PC y MAR iniciales
+            proceso.setPC(pcMarInicial);
+            proceso.setMAR(pcMarInicial);
+
+            // Escribir el nuevo valor en PCMAR.txt
+            escribirPCMAR(pcMarInicial + cantidadInstrucciones + 2);
+
+            // Encolar el proceso en la cola de listos
+            MainClass.colaListos.enqueue(proceso);
+        }
+
+        // Mostrar un mensaje de éxito
+        JOptionPane.showMessageDialog(this, "20 procesos creados automáticamente.", 
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception e) {
+        // Manejar errores
+        JOptionPane.showMessageDialog(this, "Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }    
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
         // valores vuelven a ser 0 despues de crear un proceso
     private void resetForm() {
@@ -1948,6 +2021,7 @@ public void iniciarActualizacionGraficoBarrasTiempo() {
     private javax.swing.JPanel cpuContainer3;
     private javax.swing.JLabel cpuboundTot;
     private javax.swing.JLabel ioboundTot;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2012,6 +2086,7 @@ public void iniciarActualizacionGraficoBarrasTiempo() {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel nroProcesosFCFSLB;
     private javax.swing.JLabel nroProcesosHRRN;

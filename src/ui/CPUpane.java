@@ -33,7 +33,7 @@ public class CPUpane extends javax.swing.JPanel {
         
         
         // Actualiza los valores en los labels con los datos del CPU y su proceso
-        NombreProcesoLabel.setText(cpu.getProceso() != null ? cpu.getProceso().getNombre() : "Sin Proceso");
+        NombreProcesoLabel.setText(cpu.getProceso() != null ? cpu.getProceso().getNombre() : "Proceso System");
         IDprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getId()) : "N/A" );
         PCprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getPC()) : "N/A");
         MARprocesoLabel.setText(cpu.getProceso() != null ? String.valueOf(cpu.getProceso().getMAR()) : "N/A");

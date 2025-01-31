@@ -322,13 +322,15 @@ public void run() {
                                 
                                 if (proceso.getCiclosEjecutadosDesdeUltimoBloqueo() >= proceso.getCiclosParaGenerarExcepcion() && proceso.getEstado().equals("Bloqueado") == false) {
                                     //System.out.println("hey se esta metiendo en la cola de bloqueados");
-                                    proceso.setEstado("Bloqueado");
-                                    proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);//eyyyy
-                                    proceso.setCiclosRestantesBloqueado(proceso.getCiclosParaSatisfacerExcepcion());
-                                    //System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
-                                    MainClass.colaBloqueados.enqueue(proceso);
-                                    this.liberarProceso();
-                                    break;
+                                    if (proceso.getCantidadInstrucciones() > 0){
+                                        proceso.setEstado("Bloqueado");
+                                        proceso.setCiclosEjecutadosDesdeUltimoBloqueo(0);//eyyyy
+                                        proceso.setCiclosRestantesBloqueado(proceso.getCiclosParaSatisfacerExcepcion());
+                                        //System.out.println("CPU " + id + ": Proceso " + proceso.getNombre() + " bloqueado por I/O.");
+                                        MainClass.colaBloqueados.enqueue(proceso);
+                                        this.liberarProceso();
+                                        break;
+                                    }
                                 }
                             }
 
