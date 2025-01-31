@@ -88,7 +88,7 @@ public class Cola<T> {
     public int size() {
         return tamano;
     }
-
+//
     /**
      * Imprime los elementos de la cola desde el frente hasta el final.
      */
