@@ -58,6 +58,7 @@ public class ListaPane extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         TipoprocesoLabel = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         NombreProcesoLabel.setText("Nombre del Proceso");
