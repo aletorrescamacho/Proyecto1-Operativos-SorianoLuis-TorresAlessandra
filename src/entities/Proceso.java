@@ -12,14 +12,18 @@ public class Proceso {
     private String nombre;
     private int cantidadInstrucciones;
     private String tipo;
-    private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound
-    private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound
+    private int ciclosParaGenerarExcepcion; // default 0 si no es I/O bound //este siempre sera un valor estatico
+    private int ciclosParaSatisfacerExcepcion; // default 0 si no es I/O bound // este siemrpe sera un valor estatico
+    private int ciclosRestantesBloqueado; // Ciclos restantes para desbloqueo procesos I/O Bound //cuando 
+    private int ciclosEjecutadosDesdeUltimoBloqueo; // Ciclos ejecutados desde el último bloqueo o desde que se empieza a ejecutar el proceso // cuando este sea igual a ciclos para generar excepcion, se cambiara el estado del proceso y se llevara a la cola de listos.
     private int id;
     private String estado; // default Listo
     private int PC; // Program Counter default 0
     private int MAR; // Memory Address Register default 0
     private int cpuIdThread;
-    private int cicloEnqueCola;
+    private int cicloEnqueCola;//HRRN
+    private int instruccionesEjecutadas; //SRT
+    private boolean tomado = false; // Indica si el proceso fue tomado por un CPU
 
     // Contador de ID único para cada proceso
     private static int contadorID = 1;
@@ -31,7 +35,7 @@ public class Proceso {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío.");
         }
 
-        if (cantidadInstrucciones < 0) {
+        if (cantidadInstrucciones <= 0) {
             throw new IllegalArgumentException("La cantidad de instrucciones debe ser mayor que 0.");
         }
 
@@ -55,13 +59,15 @@ public class Proceso {
             this.ciclosParaGenerarExcepcion = 0;
             this.ciclosParaSatisfacerExcepcion = 0;
         }
-
+        this.ciclosRestantesBloqueado = 0;
+        this.ciclosEjecutadosDesdeUltimoBloqueo = 0;
         this.id = contadorID++;
         this.estado = "Listo"; // Estado inicial
         this.PC = 0; // Valor inicial por defecto
         this.MAR = 0; // Valor inicial por defecto
         this.cpuIdThread = 0;
         this.cicloEnqueCola = -1;
+        this.instruccionesEjecutadas = 0;
     }
 
     // Métodos Getters y Setters 
@@ -84,15 +90,34 @@ public class Proceso {
     }
     
     public void setCantidadInstrucciones(int cantidadInstrucciones) {
-    if (cantidadInstrucciones <= 0) {
-        throw new IllegalArgumentException("La cantidad de instrucciones debe ser mayor que 0.");
-    }
+    
     this.cantidadInstrucciones = cantidadInstrucciones;
 }
 
     public String getTipo() {
         return tipo;
     }
+    
+    public int getCiclosRestantesBloqueado() {
+        return ciclosRestantesBloqueado;
+    }
+    
+    public void setCiclosRestantesBloqueado(int ciclosRestantesBloqueado) {
+        this.ciclosRestantesBloqueado = ciclosRestantesBloqueado;
+    }
+    
+    public int getCiclosEjecutadosDesdeUltimoBloqueo() {
+        return ciclosEjecutadosDesdeUltimoBloqueo;
+    }
+
+    public void setCiclosEjecutadosDesdeUltimoBloqueo(int ciclosEjecutadosDesdeUltimoBloqueo) {
+        this.ciclosEjecutadosDesdeUltimoBloqueo = ciclosEjecutadosDesdeUltimoBloqueo;
+    }
+    
+    public void incrementarCiclosEjecutados() {
+        this.ciclosEjecutadosDesdeUltimoBloqueo++;
+    }
+
 
     public int getCiclosParaGenerarExcepcion() {
         return ciclosParaGenerarExcepcion;
@@ -105,7 +130,11 @@ public class Proceso {
     public int getId() {
         return id;
     }
-
+    
+    public void setId(int ID){
+        this.id = ID;
+    }
+    
     public String getEstado() {
         return estado;
     }
@@ -133,9 +162,30 @@ public class Proceso {
     public int getcpuIdThread() {
         return cpuIdThread;
     }
+    
+    public int getInstruccionesEjecutadas() {
+    return instruccionesEjecutadas;
+}
+
+    public void setInstruccionesEjecutadas(int instruccionesEjecutadas) {
+    this.instruccionesEjecutadas = instruccionesEjecutadas;
+}
+
+    // Calcula el tiempo restante para poilitica SRT
+    public int getTiempoRestante() {
+    return cantidadInstrucciones - instruccionesEjecutadas;
+}
 
     public void setcpuIdThread(int cpuIdThread) {
         this.cpuIdThread = cpuIdThread;
+    }
+    
+    public boolean isTomado() {
+        return tomado;
+    }
+
+    public void setTomado(boolean tomado) {
+        this.tomado = tomado;
     }
     // Método toString() para imprimir el proceso
     @Override
@@ -151,6 +201,7 @@ public class Proceso {
                 ", PC=" + PC +
                 ", MAR=" + MAR +
                 ", Ciclo=" + cicloEnqueCola +
+                ", InstruccionesEjecutadas=" + instruccionesEjecutadas +
                 '}';
     }
 }

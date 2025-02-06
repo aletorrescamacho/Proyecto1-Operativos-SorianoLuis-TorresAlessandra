@@ -4,6 +4,7 @@
  */
 package entities;
 
+
 /**
  *
  * @author Luis Soriano
@@ -12,6 +13,7 @@ package entities;
 
     
 public class Nodo<T> {
+    
     private T dato; // Dato almacenado en el nodo
     private Nodo<T> siguiente; // Referencia al siguiente nodo
 

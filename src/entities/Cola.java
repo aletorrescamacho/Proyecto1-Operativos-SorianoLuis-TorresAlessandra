@@ -34,6 +34,8 @@ public class Cola<T> {
         }
         finalCola = nuevoNodo; // Actualizamos el final de la cola
         tamano++;
+       
+    
     }
 
     /**
@@ -65,6 +67,11 @@ public class Cola<T> {
         }
         return frente.getDato();
     }
+    
+    
+    public Nodo<T> peekNode() {
+    return isEmpty() ? null : frente;
+}
 
     /**
      * Verifica si la cola está vacía.
@@ -81,7 +88,7 @@ public class Cola<T> {
     public int size() {
         return tamano;
     }
-
+//
     /**
      * Imprime los elementos de la cola desde el frente hasta el final.
      */
@@ -133,5 +140,53 @@ public class Cola<T> {
             enqueue(elemento); // Reinsertar los elementos en el orden del arreglo
         }
     }
+    
+    //BUSCAR UN NODO QUE NO HAYA SIDO TOMADO 
+    public Proceso buscarNoTomado() {
+    Nodo<Proceso> actual = (Nodo<Proceso>) frente; // Comienza desde el frente de la cola
+    while (actual != null) {
+        if (!actual.getDato().isTomado()) {
+            return actual.getDato(); // Retorna el proceso no tomado
+        }
+        actual = actual.getSiguiente(); // Avanza al siguiente nodo
+    }
+    return null; // No se encontró ningún proceso no tomado
+}
+    
+    
+    
+    // BUSCAR EL FUCKING PROCESO EN TODA LA COLA PARA SACARLO.
+    public void remove(Proceso proceso) {
+    if (isEmpty()) {
+        return; // La cola está vacía
+    }
+
+    // Si el proceso está en el frente
+    if (((Proceso)frente.getDato()).getId() == proceso.getId()) {
+        frente = frente.getSiguiente(); // Mover el frente al siguiente nodo
+        if (frente == null) {
+            finalCola = null; // Si la cola quedó vacía
+        }
+        tamano--;
+        return;
+    }
+
+    // Buscar el proceso en toda la cola para sacarlo
+    Nodo<Proceso> actual = (Nodo<Proceso>) frente;
+    while (actual.getSiguiente() != null) {
+        if (actual.getSiguiente().getDato().getId() == proceso.getId()) {
+            actual.setSiguiente(actual.getSiguiente().getSiguiente());
+            if (actual.getSiguiente() == null) {
+                finalCola = (Nodo<T>) actual; // Actualizar el final de la cola
+            }
+            tamano--;
+            return;
+        }
+        actual = actual.getSiguiente();
+    }
+}
+
+
+    
 }
 
